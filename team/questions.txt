@@ -10,7 +10,7 @@ Question D: Is it possible to just make a copy of the client-side truststore,why
 
 Question E: What is the purpose of each password?  That is, what does each password protect?
 
-Question F: What does the serveranswer?
+Question F: What does the server answer? Replys with the answer backwards
 
 Question G: What is the purpose ofsetNeedClientAuth(true)in the server?
 
