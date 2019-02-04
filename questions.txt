@@ -32,7 +32,7 @@ socket before handshake:
 16c0663d[SSL_NULL_WITH_NULL_NULL: Socket[addr=localhost/127.0.0.1,port=9876,localport=60944]]
 
 client connected
-client name (cert subject DN field): CN=AbdeljalilMoussa (ab6834mo-s)/MaxBringemo(ma7642br-s)/ElinLennartsson (tna15ele)/MartinLarsson (dat14mla), OU=eita25, O=LTH, L=lund, ST=skane, C=SE
+client name (cert subject DN field): CN=AbdeljalilMoussa (ab6834mo-s)/MaxBringemo(ma7642br-s)/ElinLennartsson (tna15el)/MartinLarsson (dat14mla), OU=eita25, O=LTH, L=lund, ST=skane, C=SE
 client name (cert issuer DN field): EMAILADDRESS=ab5834mo-s@student.lu.se, CN=CA, OU=eita25, O=lth, L=lund, ST=skane, C=SE
 certificate serial number: 14970141434925909402
 
