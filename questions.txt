@@ -20,8 +20,12 @@ Question E: What is the purpose of each password?  That is, what does each passw
 For the same reason, we provide one password for each of the keystores (client and server sides). Additionally, we provide one password for each of the client-side's and server-side's keystores, so that it protects the private key of the generated keypair when we used the command "-genkeypair".
 To conclude, 2 passwords protect respectively the client-side's and server-side's truststores, 2 passwords protect the client-side's and server-side's keystores (or certificate chains), and finally 2 passwords in the client and server for protecting the end-user keypairs. In total, we have 6 protection passwords. 
 
-Question F: What does the serveranswer?
+Question F: What does the server answer?
+--> The server answers with the message in reverse.
 
-Question G: What is the purpose ofsetNeedClientAuth(true)in the server?
+Question G: What is the purpose of setNeedClientAuth(true)in the server?
+--> Controls whether client authentication is required.
 
 Question H: Show  printouts,  written  directly  in  your  submission  email,  from  both  server  andclient (we know that this is not really a question, but you get the point).
+
+
