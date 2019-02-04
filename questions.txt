@@ -27,3 +27,35 @@ Question G: What is the purpose of setNeedClientAuth(true)in the server?
 --> Controls whether client authentication is needed.
 
 Question H: Show  printouts,  written  directly  in  your  submission  email,  from  both  server  andclient (we know that this is not really a question, but you get the point).
+
+socket before handshake:
+16c0663d[SSL_NULL_WITH_NULL_NULL: Socket[addr=localhost/127.0.0.1,port=9876,localport=60944]]
+
+client connected
+client name (cert subject DN field): CN=AbdeljalilMoussa (ab6834mo-s)/MaxBringemo(ma7642br-s)/ElinLennartsson (tna15ele)/MartinLarsson (dat14mla), OU=eita25, O=LTH, L=lund, ST=skane, C=SE
+client name (cert issuer DN field): EMAILADDRESS=ab5834mo-s@student.lu.se, CN=CA, OU=eita25, O=lth, L=lund, ST=skane, C=SE
+certificate serial number: 14970141434925909402
+
+1 concurrent connection(s)
+
+certificate name (subject DN field) on certificate received from server:
+CN=MyServer, OU=eita25, O=lth, L=lund, ST=skane, C=SE
+
+certificate name (issuer DN field) on certificate received from server:
+EMAILADDRESS=ab5834mo-s@student.lu.se, CN=CA, OU=eita25, O=lth, L=lund, ST=skane, C=SE
+
+certificate serial number: 14970141434925909404
+
+socket after handshake:
+16c0663d[TLS_DHE_DSS_WITH_AES_256_CBC_SHA256: Socket[addr=localhost/127.0.0.1,port=9876,localport=60944]]
+
+secure connection established
+
+
+>Hej
+sending 'Hej' to server...done
+received 'Hej' from client
+sending 'jeH' to client...done
+
+received 'jeH' from server
+
