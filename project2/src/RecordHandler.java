@@ -1,4 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /*
@@ -45,9 +48,12 @@ public class RecordHandler implements Runnable {
 
 	}
 
-	public void delete(String file) {
-		// TODO Auto-generated method stub
-
+	public boolean delete(String file) {
+		try {
+			return Files.deleteIfExists(Paths.get("file" + ".record"));
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
 	public void edit(String file) {

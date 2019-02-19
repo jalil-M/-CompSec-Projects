@@ -54,7 +54,10 @@ public class server implements Runnable {
 				if (clientCmd.length == 1) {
 					if (clientCmd[0].equals("ls")) {
 						rh.list();
-						log.recordsListedEvent();
+						log.recordsListedEvent(true);
+					} else {
+						log.recordsListedEvent(false);
+						break;
 					}
 				}
 
@@ -64,18 +67,14 @@ public class server implements Runnable {
 				if (cmd.equals("read")) {
 					log.recordAccessedEvent();
 					out.println(rh.read(option));
-				} else if (cmd.equals("edit")) {
-
+				} else if (cmd.equals("write")) {
+					log.writeToRecordEvent();
 					rh.edit(option);
-					log.editedRecordEvent();
-				}
-
-				if (cmd.equals("delete"))
+				} else if (cmd.equals("delete")) {
 					rh.delete(option);
-
-				rh.createRecordFor(option, new String("Nurse"), new String("Doc"), new String("div"));
-
-				rh.list();
+				} else if (cmd.equals("create")) {
+					rh.createRecordFor(option, new String("Nurse"), new String("Doc"), new String("div"));
+				}
 
 				String rev = new StringBuilder(clientMsg).reverse().toString();
 				System.out.println("received '" + clientMsg + "' from client");

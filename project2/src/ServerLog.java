@@ -69,7 +69,7 @@ public class ServerLog {
 	}
 
 	// todo include time stamp
-	public void editedRecordEvent() {
+	public void writeToRecordEvent() {
 		// TODO Auto-generated method stub
 		writeToLog("logEntry");
 
@@ -90,7 +90,7 @@ public class ServerLog {
 	}
 
 	// todo include time stamp
-	public void recordsListedEvent() {
+	public void recordsListedEvent(boolean correctInput) {
 		// TODO Auto-generated method stub
 		writeToLog("logEntry");
 
