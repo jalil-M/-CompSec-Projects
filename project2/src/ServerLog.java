@@ -59,4 +59,20 @@ public class ServerLog {
 		writeToLog(logEntry);
 	}
 
+	public void createdRecordEvent() {
+
+	}
+
+	public void editedRecordEvent() {
+
+	}
+
+	public void readRecordEvent() {
+
+	}
+
+	public void deletedRecordEvent() {
+
+	}
+
 }

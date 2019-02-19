@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
-	private static ServerLog log = new ServerLog();
+	private static final ServerLog log = new ServerLog();
 	private static RecordHandler rh = null;
 
 	public server(ServerSocket ss) throws IOException {
@@ -47,6 +47,22 @@ public class server implements Runnable {
 			 */
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
+
+				String[] clientCmd = clientMsg.split(" ");
+				String cmd = clientCmd[0];
+				String option = clientCmd[1];
+
+				if (cmd.equals("read"))
+					out.println(rh.read(option));
+
+				rh.edit(option);
+
+				if (cmd.equals("delete"))
+					rh.delete(option);
+
+				rh.createRecordFor(option, new String("Nurse"), new String("Doc"), new String("div"));
+
+				rh.list();
 
 				String rev = new StringBuilder(clientMsg).reverse().toString();
 				System.out.println("received '" + clientMsg + "' from client");
