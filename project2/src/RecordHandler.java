@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Martin_2
  */
 public class RecordHandler implements Runnable {
-	
+
 	private ArrayList<Record> records = new ArrayList<Record>();
 	private Path recordDirectory = null;
 
@@ -37,26 +37,26 @@ public class RecordHandler implements Runnable {
 
 	public String read(String file) {
 		// TODO Auto-generated method stub
-		
+		return "";
 	}
 
 	public void createRecordFor(String patient, String nurse, String doctor, String division) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void delete(String file) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void edit(String file) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void list() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

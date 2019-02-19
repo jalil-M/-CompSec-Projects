@@ -44,6 +44,7 @@ public class ServerLog {
 		}
 	}
 
+	// todo include time stamp
 	public void addClientEvent(String subject, String issuer, BigInteger serial, int numConnectedClients) {
 		String logEntry = "Client connected \n";
 		logEntry = logEntry.concat("Client certificate subject DN field: " + subject + "\n");
@@ -54,24 +55,44 @@ public class ServerLog {
 		writeToLog(logEntry);
 	}
 
+	// todo include time stamp
 	public void disconnectEvent(int numConnectedClients) {
 		String logEntry = "Client disconnected \n" + numConnectedClients + " concurrent connection(s)\n";
 		writeToLog(logEntry);
 	}
 
+	// todo include time stamp
 	public void createdRecordEvent() {
+		// TODO Auto-generated method stub
+		writeToLog("logEntry");
 
 	}
 
+	// todo include time stamp
 	public void editedRecordEvent() {
+		// TODO Auto-generated method stub
+		writeToLog("logEntry");
 
 	}
 
-	public void readRecordEvent() {
+	// todo include time stamp
+	public void recordAccessedEvent() {
+		// TODO Auto-generated method stub
+		writeToLog("logEntry");
 
 	}
 
+	// todo include time stamp
 	public void deletedRecordEvent() {
+		// TODO Auto-generated method stub
+		writeToLog("logEntry");
+
+	}
+
+	// todo include time stamp
+	public void recordsListedEvent() {
+		// TODO Auto-generated method stub
+		writeToLog("logEntry");
 
 	}
 

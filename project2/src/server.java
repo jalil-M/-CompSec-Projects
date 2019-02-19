@@ -45,17 +45,30 @@ public class server implements Runnable {
 			/*
 			 * handle commands within while loop
 			 */
+			// TODO include uid
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
 
-				String[] clientCmd = clientMsg.split(" ");
+				String[] clientCmd = clientMsg.trim().split(" ");
+
+				if (clientCmd.length == 1) {
+					if (clientCmd[0].equals("ls")) {
+						rh.list();
+						log.recordsListedEvent();
+					}
+				}
+
 				String cmd = clientCmd[0];
 				String option = clientCmd[1];
 
-				if (cmd.equals("read"))
+				if (cmd.equals("read")) {
+					log.recordAccessedEvent();
 					out.println(rh.read(option));
+				} else if (cmd.equals("edit")) {
 
-				rh.edit(option);
+					rh.edit(option);
+					log.editedRecordEvent();
+				}
 
 				if (cmd.equals("delete"))
 					rh.delete(option);
