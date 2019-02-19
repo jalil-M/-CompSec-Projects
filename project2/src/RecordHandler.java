@@ -43,7 +43,7 @@ public class RecordHandler implements Runnable {
 		return "";
 	}
 
-	public void createRecordFor(String patient, String nurse, String doctor, String division) {
+	public void createRecordFor(String patient, String nurse, String doctor, String division, String data) {
 		// TODO Auto-generated method stub
 
 	}
@@ -56,7 +56,7 @@ public class RecordHandler implements Runnable {
 		}
 	}
 
-	public void edit(String file) {
+	public void write(String file) {
 		// TODO Auto-generated method stub
 
 	}
