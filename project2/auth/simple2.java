@@ -24,10 +24,10 @@ public class simple2 {
 
             String line = scan.nextLine();
 
-            credentials[count][0] = line.substring(0, 20).trim();
-            credentials[count][1] = line.substring(20, 55).trim();
-            credentials[count][2] = line.substring(55, 74).trim();
-            credentials[count][3] = line.substring(74).trim();
+            credentials[count][0] = line.substring(0, 13).trim();
+            credentials[count][1] = line.substring(13, 78).trim();
+            credentials[count][2] = line.substring(78, 85).trim();
+            credentials[count][3] = line.substring(85).trim();
             count++;
         }
 
@@ -50,7 +50,7 @@ public class simple2 {
                 String username = input.nextLine();
                 String password = readPassword("Enter Password: ");
 //generate hash
-                MessageDigest md = MessageDigest.getInstance("MD5");
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
                 md.update(password.getBytes());
                 byte[] digest = md.digest();
                 StringBuilder sb = new StringBuilder();
