@@ -42,6 +42,8 @@ public class server implements Runnable {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+			int uid = authenticate();
+			
 			/*
 			 * handle commands within while loop
 			 */
@@ -73,7 +75,7 @@ public class server implements Runnable {
 						rh.delete(option);
 					}
 				case 5:
-					if (cmd.equals("create")) {
+					if (clientCmd.equals("create")) {
 						rh.createRecordFor(clientCmd[0], clientCmd[1], clientCmd[2], clientCmd[3], clientCmd[4]);
 					}
 				}
@@ -99,6 +101,11 @@ public class server implements Runnable {
 			e.printStackTrace();
 			return;
 		}
+	}
+
+	private int authenticate() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	private void newListener() {
