@@ -43,7 +43,7 @@ public class server implements Runnable {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			int uid = authenticate();
-			
+
 			/*
 			 * handle commands within while loop
 			 */
@@ -53,32 +53,8 @@ public class server implements Runnable {
 
 				String[] clientCmd = clientMsg.trim().split(" ");
 
-				switch (clientCmd.length) {
-				case 1:
-					if (clientCmd[0].equals("ls")) {
-						rh.list();
-						log.recordsListedEvent(true);
-					} else {
-						log.recordsListedEvent(false);
-					}
-					break;
-				case 2:
-					String cmd = clientCmd[0];
-					String option = clientCmd[1];
-					if (cmd.equals("read")) {
-						log.recordAccessedEvent();
-						out.println(rh.read(option));
-					} else if (cmd.equals("write")) {
-						log.writeToRecordEvent();
-						rh.write(option);
-					} else if (cmd.equals("delete")) {
-						rh.delete(option);
-					}
-				case 5:
-					if (clientCmd.equals("create")) {
-						rh.createRecordFor(clientCmd[0], clientCmd[1], clientCmd[2], clientCmd[3], clientCmd[4]);
-					}
-				}
+				rh = new RecordHandler("../records/", uid);
+				rh.putRequest(clientCmd);
 
 				String rev = new StringBuilder(clientMsg).reverse().toString();
 				System.out.println("received '" + clientMsg + "' from client");
