@@ -10,14 +10,13 @@ public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
 	private static final ServerLog log = new ServerLog();
-	private static RecordHandler rh = null;
+	private static DataHandler rh = null;
 
 	public server(ServerSocket ss) throws IOException {
 		serverSocket = ss;
 		newListener();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void run() {
 		try {
 			SSLSocket socket = (SSLSocket) serverSocket.accept();
@@ -42,25 +41,47 @@ public class server implements Runnable {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-			int uid = authenticate();
+			File userfile = null;
+
+			/* instead of disconnect, maybe use failed authorisation for logging purposes */
+			if (authoriseUser(in, out, userfile)) {
+				if (checkPW(in, out, userfile)) {
+				} else {
+					in.close();
+					out.close();
+					socket.close();
+					numConnectedClients--;
+					log.disconnectEvent(numConnectedClients);
+					return;
+				}
+			} else {
+				in.close();
+				out.close();
+				socket.close();
+				numConnectedClients--;
+				log.disconnectEvent(numConnectedClients);
+				return;
+			}
+
+			if (userfile == null) {
+				in.close();
+				out.close();
+				socket.close();
+				numConnectedClients--;
+				log.disconnectEvent(numConnectedClients);
+				return;
+			}
 
 			/*
 			 * handle commands within while loop
 			 */
 			// TODO include uid
+			DataHandler dh = new DataHandler(userfile);
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
 
-				String[] clientCmd = clientMsg.trim().split(" ");
+				dh.handleRequest(clientMsg, out);
 
-				rh = new RecordHandler("../records/", uid);
-				rh.putRequest(clientCmd);
-
-				String rev = new StringBuilder(clientMsg).reverse().toString();
-				System.out.println("received '" + clientMsg + "' from client");
-				System.out.print("sending '" + rev + "' to client...");
-				out.println(rev);
-				out.flush();
 				System.out.println("done\n");
 			}
 
@@ -73,15 +94,34 @@ public class server implements Runnable {
 			numConnectedClients--;
 			log.disconnectEvent(numConnectedClients);
 		} catch (IOException e) {
-			System.out.println("Client died: " + e.getMessage());
-			e.printStackTrace();
+			log.caughtExceptionEvent("Client died: ", e);
 			return;
 		}
 	}
 
-	private int authenticate() {
-		// TODO Auto-generated method stub
-		return 0;
+	private boolean authoriseUser(BufferedReader in, PrintWriter out, File userfile) throws IOException {
+		String username = in.readLine();
+		String userFolder = "../users";
+		for (final File fileEntry : new File(userFolder).listFiles()) {
+			if (fileEntry.getName().split(".")[0].equals(username)) {
+				userfile = fileEntry;
+				out.println("Provide password:");
+				out.flush();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean checkPW(BufferedReader in, PrintWriter out, File userfile) throws IOException {
+		String inputHash = in.readLine();
+		BufferedReader filereader = new BufferedReader(new FileReader(userfile));
+		String storedHash = filereader.readLine().split(";")[3];
+		filereader.close();
+		if (storedHash.equals(inputHash)) {
+			return true;
+		}
+		return false;
 	}
 
 	private void newListener() {
@@ -117,8 +157,8 @@ public class server implements Runnable {
 				KeyStore ts = KeyStore.getInstance("JKS");
 				char[] password = "password".toCharArray();
 
-				ks.load(new FileInputStream("serverkeystore"), password); // keystore password (storepass)
-				ts.load(new FileInputStream("servertruststore"), password); // truststore password (storepass)
+				ks.load(new FileInputStream("../TLS2/serverkeystore"), password); // keystore password (storepass)
+				ts.load(new FileInputStream("../TLS2/servertruststore"), password); // truststore password (storepass)
 				kmf.init(ks, password); // certificate password (keypass)
 				tmf.init(ts); // possible to use keystore as truststore here
 				ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);

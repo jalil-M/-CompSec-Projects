@@ -26,9 +26,9 @@ public class DataHandler {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void putRequest(String[] clientCmd) {
+	public void handleRequest(String clientMsg, PrintWriter out) {
 		// TODO Auto-generated method stub
-		switch (clientCmd[0]) {
+		switch (clientMsg) {
 		case "read":
 			break;
 		case "write":
@@ -40,11 +40,6 @@ public class DataHandler {
 		case "create":
 			break;
 		}
-
-	}
-
-	public void handleRequest(String clientMsg, PrintWriter out) {
-		// TODO Auto-generated method stub
 		out.println("to be printed");
 		out.flush();
 	}

@@ -96,4 +96,10 @@ public class ServerLog {
 
 	}
 
+	public void caughtExceptionEvent(String string, IOException e) {
+		// TODO Auto-generated method stub
+		String logEntry = string + e.getMessage();
+		writeToLog(logEntry);
+	}
+
 }
