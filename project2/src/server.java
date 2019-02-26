@@ -103,7 +103,8 @@ public class server implements Runnable {
 		String username = in.readLine();
 		String userFolder = "../users";
 		for (final File fileEntry : new File(userFolder).listFiles()) {
-			if (fileEntry.getName().split(".")[0].equals(username)) {
+			String[] fileParts = fileEntry.getName().split(".");
+			if (fileParts.length > 0 && fileParts[0].equals(username)) {
 				userfile = fileEntry;
 				out.println("Provide password:");
 				out.flush();
