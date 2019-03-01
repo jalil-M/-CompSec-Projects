@@ -1,14 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 /*
@@ -48,64 +43,70 @@ public class DataHandler {
 		users = new File(root.getParent() + File.separator + "users");
 	}
 
-	public void handleRequest(String clientMsg, PrintWriter out) throws IOException {
+	public String handleRequest(String clientMsg) throws IOException {
 
 		switch (usertype) {
 		case PATIENT_USER:
-			out.println(patientHandler(clientMsg));
-			break;
+			return patientHandler(clientMsg);
 		case DOCTOR_USER:
-			out.println(doctorHandler(clientMsg));
-			break;
+			return doctorHandler(clientMsg);
 		case NURSE_USER:
-			out.println(nurseHandler(clientMsg));
-			break;
+			return nurseHandler(clientMsg);
 		case GA_USER:
-			out.println(gaHandler(clientMsg));
-			break;
+			return gaHandler(clientMsg);
 		default:
-			out.println("unknown usertype");
 			log.unknownUsertypeEvent();
-			break;
+			return ("unknown usertype");
 		}
-		out.flush();
 	}
 
 	private String patientHandler(String clientMsg) throws IOException {
-		// TODO Auto-generated method stub
 		String[] cmdParts = clientMsg.split(" ");
 		BufferedReader filereader = new BufferedReader(new FileReader(userfile));
 		String[] credentials = filereader.readLine().split(";");
+		String[] permissions = credentials[3].split(",");
 		filereader.close();
 
 		switch (cmdParts[0]) {
 		case "read":
 			if (cmdParts.length != 2) {
+				filereader.close();
 				return "wrong format, should be: read \"filename\"";
 			}
 			String srcFile = cmdParts[1];
-			File record = new File(records.getAbsolutePath() + File.separator + srcFile);
-			filereader = new BufferedReader(new FileReader(record));
-			return filereader.readLine();
-		case "ls":
-			String output = "";
-			for (File file : records.listFiles()) {
-				String filename = file.getName().split("-")[0];
-				if (filename.equals(username)) {
-					output = output.concat(file.getName() + "\n");
+			for (String entry : permissions) {
+				if (srcFile.equals(entry)) {
+					File record = new File(records.getAbsolutePath() + File.separator + srcFile);
+					filereader = new BufferedReader(new FileReader(record));
+					String msg = filereader.readLine();
+					filereader.close();
+					return msg;
 				}
 			}
+			filereader.close();
+			return "No such file or access denied";
+
+		case "ls":
+			String output = "";
+			for (String entry : permissions) {
+				output = output.concat(entry + "\n");
+			}
+			filereader.close();
 			return output;
 		case "write":
 			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			filereader.close();
 			return "Access denied";
 		case "delete":
 			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			filereader.close();
 			return "Access denied";
 		case "create":
 			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			filereader.close();
 			return "Access denied";
 		default:
+			filereader.close();
 			return "Unknown cmd";
 		}
 	}

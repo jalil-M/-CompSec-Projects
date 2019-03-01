@@ -81,9 +81,9 @@ public class client {
 
 			SSLSession session = socket.getSession();
 			X509Certificate cert = session.getPeerCertificateChain()[0];
-			String subject = cert.getSubjectDN().getName();
-			String issuer = cert.getIssuerDN().getName();
-			BigInteger serial = cert.getSerialNumber();
+//			String subject = cert.getSubjectDN().getName();
+//			String issuer = cert.getIssuerDN().getName();
+//			BigInteger serial = cert.getSerialNumber();
 //			System.out.println(
 //					"certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
 //			System.out.println(

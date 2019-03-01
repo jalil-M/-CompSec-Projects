@@ -84,12 +84,14 @@ public class server implements Runnable {
 
 			DataHandler dh = new DataHandler(username, userfile, usertype, log);
 			out.println(usertype);
+			out.flush();
 			out.println("Enter command:");
 			out.flush();
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
 
-				dh.handleRequest(clientMsg, out);
+				out.println(dh.handleRequest(clientMsg));
+				out.flush();
 
 				System.out.println("Handled \"" + clientMsg + "\" from " + username);
 			}
