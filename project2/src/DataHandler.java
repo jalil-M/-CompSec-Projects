@@ -66,27 +66,36 @@ public class DataHandler {
 		default:
 			out.println("unknown usertype");
 			log.unknownUsertypeEvent();
-			return;
+			break;
 		}
+		out.flush();
 	}
 
 	private String patientHandler(String clientMsg) throws IOException {
 		// TODO Auto-generated method stub
 		String[] cmdParts = clientMsg.split(" ");
-		StringBuilder sb = new StringBuilder();
 		BufferedReader filereader = new BufferedReader(new FileReader(userfile));
 		String[] credentials = filereader.readLine().split(";");
 		filereader.close();
 
 		switch (cmdParts[0]) {
 		case "read":
-			break;
-		case "ls":
-			String[] files = credentials[3].split(",");
-			for (String record : files) {
-				sb.append(record + "\n");
+			if (cmdParts.length != 2) {
+				return "wrong format, should be: read \"filename\"";
 			}
-			break;
+			String srcFile = cmdParts[1];
+			File record = new File(records.getAbsolutePath() + File.separator + srcFile);
+			filereader = new BufferedReader(new FileReader(record));
+			return filereader.readLine();
+		case "ls":
+			String output = "";
+			for (File file : records.listFiles()) {
+				String filename = file.getName().split("-")[0];
+				if (filename.equals(username)) {
+					output = output.concat(file.getName() + "\n");
+				}
+			}
+			return output;
 		case "write":
 			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
 			return "Access denied";
@@ -97,10 +106,8 @@ public class DataHandler {
 			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
 			return "Access denied";
 		default:
-			sb.append("Unknown cmd");
+			return "Unknown cmd";
 		}
-
-		return sb.toString();
 	}
 
 	private String nurseHandler(String clientMsg) {
