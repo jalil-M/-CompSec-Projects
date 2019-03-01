@@ -11,7 +11,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.KeyStoreException;
 import java.util.Scanner;
 
-
 /*
  * This example shows how to set up a key manager to perform client
  * authentication.
@@ -64,13 +63,13 @@ public class client {
 				usr = getCAInfo(extractCAInfo(keystorepath, password).replaceAll("\\s+", "")).get(0);
 
 			} catch (Exception e) {
-				//throw new IOException(e.getMessage());
+				// throw new IOException(e.getMessage());
 				System.out.println("Client keystore password rejected.\n");
 
 			}
 			assert factory != null;
 			SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
-			System.out.println("\nsocket before handshake:\n" + socket + "\n");
+			// System.out.println("\nsocket before handshake:\n" + socket + "\n");
 
 			/*
 			 * send http request
@@ -85,38 +84,38 @@ public class client {
 			String subject = cert.getSubjectDN().getName();
 			String issuer = cert.getIssuerDN().getName();
 			BigInteger serial = cert.getSerialNumber();
-			System.out.println(
-					"certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
-			System.out.println(
-					"certificate name (issuer DN field) on certificate received from server:\n" + issuer + "\n");
-			System.out.println("certificate serial number: " + serial + "\n");
-			System.out.println("socket after handshake:\n" + socket + "\n");
-			System.out.println("secure connection established\n\n");
+//			System.out.println(
+//					"certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
+//			System.out.println(
+//					"certificate name (issuer DN field) on certificate received from server:\n" + issuer + "\n");
+//			System.out.println("certificate serial number: " + serial + "\n");
+//			System.out.println("socket after handshake:\n" + socket + "\n");
+//			System.out.println("secure connection established\n\n");
 
 			BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msg;
 
-			/*Send username to server*/
-			System.out.println(usr);
+			/* Send username to server */
+			// System.out.println(usr);
 			out.println(usr);
 			out.flush();
 
-			System.out.println(in.readLine());
-			if (in.readLine().equals("Provide password:")) {
+			String input = in.readLine();
+			System.out.println(input);
+			if (input.equals("Provide password:")) {
 				msg = read.readLine();
 				out.println(msg);
 				out.flush();
 
-				if (passwordExist(in)) {
+				input = in.readLine();
+				if (passwordExist(input)) {
 					/* TODO openAppropriate GUI window */
+					System.out.println("authenticated");
+				} else {
 
-				}
-
-				else {
 					System.out.println("User not recognized, shutting down connection...");
-
 					in.close();
 					out.close();
 					read.close();
@@ -129,7 +128,6 @@ public class client {
 		}
 	}
 
-
 	private static String extractCAInfo(String keystoreFileLocation, char[] password) {
 
 		String caInfo = "";
@@ -140,9 +138,8 @@ public class client {
 			InputStream is = new FileInputStream(file);
 			KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
 			System.out.print("Accepting keystore password...\n");
-			//System.out.println(password);
+			// System.out.println(password);
 			keystore.load(is, password);
-
 
 			Enumeration<String> enumeration = keystore.aliases();
 			while (enumeration.hasMoreElements()) {
@@ -153,14 +150,11 @@ public class client {
 				}
 			}
 
-
-
 			try {
 				is.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 
 		} catch (CertificateException | IOException | KeyStoreException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -171,7 +165,6 @@ public class client {
 	}
 
 	private static ArrayList<String> getCAInfo(String data) {
-
 
 		int fromIndex = data.indexOf("CN");
 		int toIndex = data.indexOf("Signature");
@@ -197,15 +190,8 @@ public class client {
 		return string.substring(fromIndex, toIndex);
 	}
 
-	private static boolean passwordExist(BufferedReader in) throws IOException {
-		return in.readLine().equals("Authenticated!");
+	private static boolean passwordExist(String input) throws IOException {
+		return input.equals("Authenticated!");
 	}
 
-
 }
-
-
-
-
-
-

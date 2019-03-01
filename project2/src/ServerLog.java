@@ -45,7 +45,7 @@ public class ServerLog {
 	}
 
 	// todo include time stamp
-	public void addClientEvent(String subject, String issuer, BigInteger serial, int numConnectedClients) {
+	public void clientConnectsEvent(String subject, String issuer, BigInteger serial, int numConnectedClients) {
 		String logEntry = "Client connected \n";
 		logEntry = logEntry.concat("Client certificate subject DN field: " + subject + "\n");
 		logEntry = logEntry.concat("Client certificate issuer DN field: " + issuer + "\n");
@@ -96,10 +96,20 @@ public class ServerLog {
 
 	}
 
-	public void caughtExceptionEvent(String string, IOException e) {
+	public void caughtExceptionEvent(String string, Exception e) {
 		// TODO Auto-generated method stub
 		String logEntry = string + e.getMessage();
 		writeToLog(logEntry);
+	}
+
+	public void authenticationAttemptSucceeded(String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void authenticationAttemptFailed(String username) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

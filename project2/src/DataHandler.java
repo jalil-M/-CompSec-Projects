@@ -21,29 +21,38 @@ public class DataHandler {
 	private File userfile;
 	private HashMap<String, File> writePerm = new HashMap<String, File>();
 	private HashMap<String, File> readPerm = new HashMap<String, File>();
-	private int uType = 0;
+	private int userType = -1;
+
+	protected static final int PATIENT_USER = 0;
+	protected static final int NURSE_USER = 1;
+	protected static final int DOCTOR_USER = 2;
+	protected static final int GA_USER = 3;
 
 	public DataHandler(File userfile, int uType) {
 		this.userfile = userfile;
-		this.uType = uType;
+		this.userType = uType;
 	}
 
 	public void handleRequest(String clientMsg, PrintWriter out) {
 		// TODO Auto-generated method stub
-		switch (clientMsg) {
-		case "read":
+		switch (userType) {
+		case PATIENT_USER:
 			break;
-		case "write":
+		case DOCTOR_USER:
 			break;
-		case "delete":
+		case NURSE_USER:
 			break;
-		case "ls":
+		case GA_USER:
 			break;
-		case "create":
+		default:
 			break;
 		}
-		out.println("to be printed");
-		out.flush();
+	}
+
+	private String[] ls() {
+		// TODO internal files + division
+
+		return null;
 	}
 
 }

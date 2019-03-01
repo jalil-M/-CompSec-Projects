@@ -1,5 +1,7 @@
 import java.io.*;
 import java.net.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyStore;
 import javax.net.*;
 import javax.net.ssl.*;
@@ -10,12 +12,6 @@ public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
 	private static final ServerLog log = new ServerLog();
-	private static DataHandler dh = null;
-
-	private static final int PATIENT_USER = 0;
-	private static final int NURSE_USER = 1;
-	private static final int DOCTOR_USER = 2;
-	private static final int GA_USER = 3;
 
 	public server(ServerSocket ss) throws IOException {
 		serverSocket = ss;
@@ -36,7 +32,7 @@ public class server implements Runnable {
 			/**
 			 * this paragraph should be filed to the log
 			 */
-			log.addClientEvent(subject, issuer, serial, numConnectedClients);
+			log.clientConnectsEvent(subject, issuer, serial, numConnectedClients);
 
 			/**
 			 * handles input from client
@@ -46,17 +42,30 @@ public class server implements Runnable {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-			File userfile = null;
-
 			/* instead of disconnect, maybe use failed authorisation for logging purposes */
-			if (authoriseUser(in, out, userfile)) {
-				if (checkPW(in, out, userfile)) {
+			File userfile = null;
+			String username = in.readLine();
+			int unitType = getUnitType(username);
+
+			if ((userfile = authoriseUser(username)) != null) {
+
+				out.println("Provide password:");
+				out.flush();
+
+				String hash = in.readLine();
+				if (checkPW(hash, userfile, unitType)) {
+
+					log.authenticationAttemptSucceeded(username);
+					out.println("Authenticated!");
+					out.flush();
+
 				} else {
+
 					in.close();
 					out.close();
 					socket.close();
 					numConnectedClients--;
-					log.disconnectEvent(numConnectedClients);
+					log.authenticationAttemptFailed(username);
 					return;
 				}
 			} else {
@@ -64,16 +73,7 @@ public class server implements Runnable {
 				out.close();
 				socket.close();
 				numConnectedClients--;
-				log.disconnectEvent(numConnectedClients);
-				return;
-			}
-
-			if (userfile == null) {
-				in.close();
-				out.close();
-				socket.close();
-				numConnectedClients--;
-				log.disconnectEvent(numConnectedClients);
+				log.authenticationAttemptFailed(username);
 				return;
 			}
 
@@ -81,8 +81,11 @@ public class server implements Runnable {
 			 * handle commands within while loop
 			 */
 			// TODO include uid
-			DataHandler dh = new DataHandler(userfile);
+
+			DataHandler dh = new DataHandler(userfile, unitType);
 			String clientMsg = null;
+			out.println("Enter command:");
+			out.flush();
 			while ((clientMsg = in.readLine()) != null) {
 
 				dh.handleRequest(clientMsg, out);
@@ -98,34 +101,65 @@ public class server implements Runnable {
 			socket.close();
 			numConnectedClients--;
 			log.disconnectEvent(numConnectedClients);
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			log.caughtExceptionEvent("Client died: ", e);
 			return;
 		}
 	}
 
-	private boolean authoriseUser(BufferedReader in, PrintWriter out, File userfile) throws IOException {
-		String username = in.readLine();
-		File userFolder = new File("../users/");
-		System.out.println(userFolder.getAbsolutePath());
-		for (final File fileEntry : userFolder.listFiles()) {
-			String[] fileParts = fileEntry.getName().split(".");
-			if (fileParts.length > 0 && fileParts[0].equals(username)) {
-				userfile = fileEntry;
-				out.println("Provide password:");
-				out.flush();
-				return true;
-			}
+	private int getUnitType(String username) {
+		switch (username.charAt(0)) {
+		case 'p':
+			return DataHandler.PATIENT_USER;
+		case 'd':
+			return DataHandler.DOCTOR_USER;
+		case 'n':
+			return DataHandler.NURSE_USER;
+		case 'G':
+			return DataHandler.GA_USER;
+		default:
+			return -1;
 		}
-		return false;
 	}
 
-	private boolean checkPW(BufferedReader in, PrintWriter out, File userfile) throws IOException {
-		String inputHash = in.readLine();
+	private File authoriseUser(String username) throws URISyntaxException {
+		File root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+		File userFolder = new File(root.getParent() + File.separator + "users");
+		for (final File fileEntry : userFolder.listFiles()) {
+			String[] fileParts = fileEntry.getName().split("\\.");
+			if (fileParts.length > 0 && fileParts[0].equals(username)) {
+				return fileEntry;
+			}
+		}
+		return null;
+	}
+
+	private boolean checkPW(String inputHash, File userfile, int unitType) throws IOException {
 		BufferedReader filereader = new BufferedReader(new FileReader(userfile));
-		String storedHash = filereader.readLine().split(";")[3];
+		String[] credentials = filereader.readLine().split(";");
+		String storedHash;
+
+		switch (unitType) {
+		case DataHandler.PATIENT_USER:
+			storedHash = credentials[2];
+			break;
+		case DataHandler.DOCTOR_USER:
+			storedHash = credentials[3];
+			break;
+		case DataHandler.NURSE_USER:
+			storedHash = credentials[3];
+			break;
+		case DataHandler.GA_USER:
+			storedHash = credentials[2];
+			break;
+		default:
+			storedHash = null;
+			break;
+		}
+
 		filereader.close();
-		if (storedHash.equals(inputHash)) {
+
+		if (storedHash != null && storedHash.equals(inputHash)) {
 			return true;
 		}
 		return false;
