@@ -105,7 +105,7 @@ public class client {
 			String input = in.readLine();
 			System.out.println(input);
 			if (input.equals("Provide password:")) {
-				msg = read.readLine();
+				msg = read.readLine("enter password:");
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
                 md.update(msg.getBytes());
                 byte[] digest = md.digest();
