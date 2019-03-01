@@ -18,12 +18,14 @@ import java.util.HashMap;
  * 
  */
 public class DataHandler {
+	private File userfile;
+	private HashMap<String, File> writePerm = new HashMap<String, File>();
+	private HashMap<String, File> readPerm = new HashMap<String, File>();
+	private int uType = 0;
 
-	public DataHandler(String directoryPath, int UID) {
-	}
-
-	public DataHandler(File userfile) {
-		// TODO Auto-generated constructor stub
+	public DataHandler(File userfile, int uType) {
+		this.userfile = userfile;
+		this.uType = uType;
 	}
 
 	public void handleRequest(String clientMsg, PrintWriter out) {

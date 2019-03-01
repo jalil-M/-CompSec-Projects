@@ -10,7 +10,12 @@ public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
 	private static final ServerLog log = new ServerLog();
-	private static DataHandler rh = null;
+	private static DataHandler dh = null;
+
+	private static final int PATIENT_USER = 0;
+	private static final int NURSE_USER = 1;
+	private static final int DOCTOR_USER = 2;
+	private static final int GA_USER = 3;
 
 	public server(ServerSocket ss) throws IOException {
 		serverSocket = ss;
@@ -101,8 +106,9 @@ public class server implements Runnable {
 
 	private boolean authoriseUser(BufferedReader in, PrintWriter out, File userfile) throws IOException {
 		String username = in.readLine();
-		String userFolder = "../users";
-		for (final File fileEntry : new File(userFolder).listFiles()) {
+		File userFolder = new File("../users/");
+		System.out.println(userFolder.getAbsolutePath());
+		for (final File fileEntry : userFolder.listFiles()) {
 			String[] fileParts = fileEntry.getName().split(".");
 			if (fileParts.length > 0 && fileParts[0].equals(username)) {
 				userfile = fileEntry;

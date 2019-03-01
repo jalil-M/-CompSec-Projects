@@ -1,1 +1,4 @@
-name;job;division;hash;dataR("../p1/p1-01.record", "../p1/p1-02.record"...);dataW("../p2/p2-01.record")
+name;patient;hash;dataR("../records/p1-01.record", "../records/p1-02.record"...)
+name;nurse;div#;hash;dataW("../records/p1-01.record", "../records/p1-02.record"...)
+name;doctor;div#;hash;dataW("../records/p1-01.record", "../records/p1-02.record"...)
+GA;GA;hash
