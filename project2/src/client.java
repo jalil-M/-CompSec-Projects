@@ -105,11 +105,18 @@ public class client {
 			String input = in.readLine();
 			System.out.println(input);
 			if (input.equals("Provide password:")) {
-//				msg = read.readLine();
-				msg = "1BE00341082E25C4E251CA6713E767F7131A2823B0052CAF9C9B006EC512F6CB";// TODO change from hard-coded
-				out.println(msg);
+				msg = read.readLine("enter password:");
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+                md.update(msg.getBytes());
+                byte[] digest = md.digest();
+                StringBuilder sb = new StringBuilder();
+                for (byte b : digest) {
+                    sb.append(String.format("%02x", b & 0xff));
+                }
+                String hash = sb.toString();
+				out.println(hash);
 				out.flush();
-
+				//msg = "1BE00341082E25C4E251CA6713E767F7131A2823B0052CAF9C9B006EC512F6CB";// TODO change from hard-coded
 				input = in.readLine();
 				if (passwordExist(input)) {
 
