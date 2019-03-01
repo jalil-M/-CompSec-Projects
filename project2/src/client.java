@@ -1,10 +1,16 @@
-import java.net.*;
 import java.io.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 import java.security.KeyStore;
 import java.security.cert.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.security.NoSuchAlgorithmException;
+import java.security.KeyStoreException;
+import java.util.Scanner;
+
 
 /*
  * This example shows how to set up a key manager to perform client
@@ -17,7 +23,9 @@ import java.math.BigInteger;
 public class client {
 
 	@SuppressWarnings("deprecation")
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
+		String usr = "";
+		Scanner scanPass = new Scanner(System.in);
 		String host = null;
 		int port = -1;
 		for (int i = 0; i < args.length; i++) {
@@ -38,21 +46,29 @@ public class client {
 		try { /* set up a key manager for client authentication */
 			SSLSocketFactory factory = null;
 			try {
-				char[] password = "password".toCharArray();
+				System.out.print("Keystore Password: ");
+				char[] password = scanPass.nextLine().toCharArray();
 				KeyStore ks = KeyStore.getInstance("JKS");
 				KeyStore ts = KeyStore.getInstance("JKS");
 				KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 				TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 				SSLContext ctx = SSLContext.getInstance("TLS");
-				ks.load(new FileInputStream("clientkeystore"), password); // keystore password (storepass)
-				ts.load(new FileInputStream("clienttruststore"), password); // truststore password (storepass);
+				ks.load(new FileInputStream("../TLS2/p2keystore"), password); // keystore password (storepass)
+				ts.load(new FileInputStream("../TLS2/p2truststore"), password); // truststore password (storepass);
 				kmf.init(ks, password); // user password (keypass)
 				tmf.init(ts); // keystore can be used as truststore here
 				ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 				factory = ctx.getSocketFactory();
+
+				String keystorepath = "../TLS2/p2keystore";
+				usr = getCAInfo(extractCAInfo(keystorepath, password).replaceAll("\\s+", "")).get(0);
+
 			} catch (Exception e) {
-				throw new IOException(e.getMessage());
+				//throw new IOException(e.getMessage());
+				System.out.println("Client keystore password rejected.\n");
+
 			}
+			assert factory != null;
 			SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
 			System.out.println("\nsocket before handshake:\n" + socket + "\n");
 
@@ -65,7 +81,7 @@ public class client {
 			socket.startHandshake();
 
 			SSLSession session = socket.getSession();
-			X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
+			X509Certificate cert = session.getPeerCertificateChain()[0];
 			String subject = cert.getSubjectDN().getName();
 			String issuer = cert.getIssuerDN().getName();
 			BigInteger serial = cert.getSerialNumber();
@@ -81,26 +97,115 @@ public class client {
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msg;
-			for (;;) {
-				System.out.print(">");
+
+			/*Send username to server*/
+			System.out.println(usr);
+			out.println(usr);
+			out.flush();
+
+			System.out.println(in.readLine());
+			if (in.readLine().equals("Provide password:")) {
 				msg = read.readLine();
-				if (msg.equalsIgnoreCase("quit")) {
-					break;
-				}
-				System.out.print("sending '" + msg + "' to server...");
 				out.println(msg);
 				out.flush();
-				System.out.println("done");
 
-				System.out.println("received '" + in.readLine() + "' from server\n");
+				if (passwordExist(in)) {
+					/* TODO openAppropriate GUI window */
+
+				}
+
+				else {
+					System.out.println("User not recognized, shutting down connection...");
+
+					in.close();
+					out.close();
+					read.close();
+					socket.close();
+				}
 			}
-			in.close();
-			out.close();
-			read.close();
-			socket.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+
+	private static String extractCAInfo(String keystoreFileLocation, char[] password) {
+
+		String caInfo = "";
+
+		try {
+
+			File file = new File(keystoreFileLocation);
+			InputStream is = new FileInputStream(file);
+			KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+			System.out.print("Accepting keystore password...\n");
+			//System.out.println(password);
+			keystore.load(is, password);
+
+
+			Enumeration<String> enumeration = keystore.aliases();
+			while (enumeration.hasMoreElements()) {
+				String alias = enumeration.nextElement();
+				if (alias.equals("mykey")) {
+					Certificate certificate = keystore.getCertificate(alias);
+					caInfo = certificate.toString();
+				}
+			}
+
+
+
+			try {
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
+		} catch (CertificateException | IOException | KeyStoreException | NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		return caInfo;
+
+	}
+
+	private static ArrayList<String> getCAInfo(String data) {
+
+
+		int fromIndex = data.indexOf("CN");
+		int toIndex = data.indexOf("Signature");
+
+		StringBuilder moreData = new StringBuilder();
+		moreData.append(data, fromIndex, toIndex).append(",");
+
+		ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(moreData.toString().split(",")));
+
+		for (int i = 0; i < returnValue.size(); i++) {
+			returnValue.set(i, removeChar(returnValue.get(i)));
+		}
+
+		return returnValue;
+
+	}
+
+	private static String removeChar(String string) {
+
+		int fromIndex = string.indexOf("=") + 1;
+		int toIndex = string.length();
+
+		return string.substring(fromIndex, toIndex);
+	}
+
+	private static boolean passwordExist(BufferedReader in) throws IOException {
+		return in.readLine().equals("Authenticated!");
+	}
+
+
 }
+
+
+
+
+
+
