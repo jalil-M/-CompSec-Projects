@@ -1,4 +1,4 @@
-name;patient;hash;dataR("../records/p1-01.record", "../records/p1-02.record"...)
-name;nurse;div#;hash;dataW("../records/p1-01.record", "../records/p1-02.record"...)
-name;doctor;div#;hash;dataW("../records/p1-01.record", "../records/p1-02.record"...)
-GA;GA;hash
+name;patient;hash
+name;nurse;div#;hash;dataW("../records/p1-01.record","../records/p1-02.record"...)
+name;doctor;div#;hash;dataW("../records/p1-01.record","../records/p1-02.record"...)
+GA;GA_name;hash

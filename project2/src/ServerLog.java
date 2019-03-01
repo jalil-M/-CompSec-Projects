@@ -112,4 +112,14 @@ public class ServerLog {
 		
 	}
 
+	public void unknownUsertypeEvent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void unauthorisedActionAttemptedEvent(String cmdParts, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

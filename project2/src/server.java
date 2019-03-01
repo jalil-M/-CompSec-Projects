@@ -45,7 +45,7 @@ public class server implements Runnable {
 			/* instead of disconnect, maybe use failed authorisation for logging purposes */
 			File userfile = null;
 			String username = in.readLine();
-			int unitType = getUnitType(username);
+			int usertype = getUnitType(username);
 
 			if ((userfile = authoriseUser(username)) != null) {
 
@@ -53,7 +53,7 @@ public class server implements Runnable {
 				out.flush();
 
 				String hash = in.readLine();
-				if (checkPW(hash, userfile, unitType)) {
+				if (checkPW(hash, userfile, usertype)) {
 
 					log.authenticationAttemptSucceeded(username);
 					out.println("Authenticated!");
@@ -82,15 +82,16 @@ public class server implements Runnable {
 			 */
 			// TODO include uid
 
-			DataHandler dh = new DataHandler(userfile, unitType);
-			String clientMsg = null;
+			DataHandler dh = new DataHandler(username, userfile, usertype, log);
+			out.println(usertype);
 			out.println("Enter command:");
 			out.flush();
+			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
 
 				dh.handleRequest(clientMsg, out);
 
-				System.out.println("done\n");
+				System.out.println("Handled \"" + clientMsg + "\" from " + username);
 			}
 
 			/*

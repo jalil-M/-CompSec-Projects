@@ -105,14 +105,34 @@ public class client {
 			String input = in.readLine();
 			System.out.println(input);
 			if (input.equals("Provide password:")) {
-				msg = read.readLine();
+//				msg = read.readLine();
+				msg = "1BE00341082E25C4E251CA6713E767F7131A2823B0052CAF9C9B006EC512F6CB";// TODO change from hard-coded
 				out.println(msg);
 				out.flush();
 
 				input = in.readLine();
 				if (passwordExist(input)) {
+
 					/* TODO openAppropriate GUI window */
-					System.out.println("authenticated");
+
+					int usertype = Integer.parseInt(in.readLine()); // see DataHandler reference
+					System.out.println(in.readLine());
+
+					// for testing
+					for (;;) {
+						System.out.print(">");
+						msg = read.readLine();
+						if (msg.equalsIgnoreCase("quit")) {
+							break;
+						}
+						System.out.print("sending '" + msg + "' to server...");
+						out.println(msg);
+						out.flush();
+						System.out.println("done");
+						System.out.println("received '" + in.readLine() + "' from server\n");
+					}
+					// for testing //
+
 				} else {
 
 					System.out.println("User not recognized, shutting down connection...");
