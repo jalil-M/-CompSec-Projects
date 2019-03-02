@@ -78,7 +78,7 @@ public class ServerLog {
 	}
 
 	public void recordAccessedEvent(boolean permited, String username, String filename) {
-		String logEntry = "User " + username + "attempted to read " + filename;
+		String logEntry = "User " + username + " attempted to read " + filename;
 		if (permited) {
 			logEntry = logEntry.concat(", action was permitted");
 		} else {
