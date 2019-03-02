@@ -1,17 +1,14 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -230,21 +227,15 @@ public class DataHandler {
 				if (srcFile.equals(entry)) {
 					File record = new File(records.getAbsolutePath() + File.separator + srcFile);
 					fr = new BufferedReader(new FileReader(record));
-					String msg = fr.readLine();
-					PrintWriter pw = new PrintWriter(record);
-					String[] recordData = msg.split(";");
-
-					recordData[3] = cmdParts[2];
-					pw.print(recordData[0] + ";");
-					pw.print(recordData[1] + ";");
-					pw.print(recordData[2] + ";");
-					pw.print(recordData[3]);
-
-					String newData = pw.toString();
-
-					pw.close();
+					String oldData = fr.readLine().split(";")[2];
+					FileWriter fw = new FileWriter(record, true);
+					BufferedWriter bw = new BufferedWriter(fw);
+					PrintWriter out = new PrintWriter(bw);
+					String newData = cmdParts[2];
+					out.print(newData);
+					out.close();
 					fr.close();
-					log.recordChangedEvent(username, msg, newData, record.getName());
+					log.recordChangedEvent(username, oldData, newData, record.getName());
 					return "update confirmed";
 				}
 			}
@@ -369,21 +360,15 @@ public class DataHandler {
 				if (srcFile.equals(entry)) {
 					File record = new File(records.getAbsolutePath() + File.separator + srcFile);
 					fr = new BufferedReader(new FileReader(record));
-					String msg = fr.readLine();
-					PrintWriter pw = new PrintWriter(record);
-					String[] recordData = msg.split(";");
-
-					recordData[3] = cmdParts[2];
-					pw.print(recordData[0] + ";");
-					pw.print(recordData[1] + ";");
-					pw.print(recordData[2] + ";");
-					pw.print(recordData[3]);
-
-					String newData = pw.toString();
-
-					pw.close();
+					String oldData = fr.readLine().split(";")[2];
+					FileWriter fw = new FileWriter(record, true);
+					BufferedWriter bw = new BufferedWriter(fw);
+					PrintWriter out = new PrintWriter(bw);
+					String newData = cmdParts[2];
+					out.print(newData);
+					out.close();
 					fr.close();
-					log.recordChangedEvent(username, msg, newData, record.getName());
+					log.recordChangedEvent(username, oldData, newData, record.getName());
 					return "update confirmed";
 				}
 			}
