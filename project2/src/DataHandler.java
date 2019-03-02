@@ -232,7 +232,7 @@ public class DataHandler {
 					BufferedWriter bw = new BufferedWriter(fw);
 					PrintWriter out = new PrintWriter(bw);
 					String newData = cmdParts[2];
-					out.print(newData);
+					out.print(" " + newData);
 					out.close();
 					fr.close();
 					log.recordChangedEvent(username, oldData, newData, record.getName());
@@ -365,7 +365,7 @@ public class DataHandler {
 					BufferedWriter bw = new BufferedWriter(fw);
 					PrintWriter out = new PrintWriter(bw);
 					String newData = cmdParts[2];
-					out.print(newData);
+					out.print(" " + newData);
 					out.close();
 					fr.close();
 					log.recordChangedEvent(username, oldData, newData, record.getName());

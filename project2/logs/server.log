@@ -905,3 +905,18 @@ Certificate serial number: 16092019537974721093
 1 concurrent connection(s) 
 
 logEntry
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s) 
+
+2019.03.02 17:24:26 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.02 17:24:31 CET
+User d2 changed record p1-002.records from div1 to Patient has weak toes
+2019.03.02 17:25:45 CET
+Client died: Connection reset
+2019.03.02 17:31:03 CET
