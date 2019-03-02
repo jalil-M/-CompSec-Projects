@@ -3,7 +3,6 @@ import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 import java.security.KeyStore;
 import java.security.cert.*;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -74,7 +73,6 @@ public class client {
 			}
 			assert factory != null;
 			SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
-			// System.out.println("\nsocket before handshake:\n" + socket + "\n");
 
 			/*
 			 * send http request
@@ -86,16 +84,6 @@ public class client {
 
 			SSLSession session = socket.getSession();
 			X509Certificate cert = session.getPeerCertificateChain()[0];
-//			String subject = cert.getSubjectDN().getName();
-//			String issuer = cert.getIssuerDN().getName();
-//			BigInteger serial = cert.getSerialNumber();
-//			System.out.println(
-//					"certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
-//			System.out.println(
-//					"certificate name (issuer DN field) on certificate received from server:\n" + issuer + "\n");
-//			System.out.println("certificate serial number: " + serial + "\n");
-//			System.out.println("socket after handshake:\n" + socket + "\n");
-//			System.out.println("secure connection established\n\n");
 
 			BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -108,11 +96,10 @@ public class client {
 			out.flush();
 
 			String input = in.readLine();
-			System.out.println(input);
 			if (input.equals("Provide password:")) {
-				msg = read.readLine();
+				String pw = readPassword(input);
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				md.update(msg.getBytes());
+				md.update(pw.getBytes());
 				byte[] digest = md.digest();
 				StringBuilder sb = new StringBuilder();
 				for (byte b : digest) {
@@ -224,6 +211,60 @@ public class client {
 
 	private static boolean passwordExist(String input) throws IOException {
 		return input.equals("Authenticated!");
+	}
+
+	public static String readPassword(String prompt) {
+		EraserThread et = new EraserThread(prompt);
+		Thread mask = new Thread(et);
+		mask.start();
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String password = "";
+
+		try {
+			password = in.readLine();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		// stop masking
+		et.stopMasking();
+		// return the password entered by the user
+		return password;
+	}
+
+}
+
+class EraserThread implements Runnable {
+	private boolean stop;
+
+	/**
+	 * @param prompt
+	 *            displayed to the user
+	 */
+	public EraserThread(String prompt) {
+		System.out.print(prompt);
+	}
+
+	/**
+	 * Begin masking...display asterisks (*)
+	 */
+	public void run() {
+		stop = true;
+		while (stop) {
+			System.out.print("\010*");
+			try {
+				Thread.currentThread().sleep(1);
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Instruct the thread to stop masking
+	 */
+	public void stopMasking() {
+		this.stop = false;
 	}
 
 }

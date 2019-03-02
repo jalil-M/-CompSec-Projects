@@ -1,7 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.KeyStore;
 import javax.net.*;
 import javax.net.ssl.*;

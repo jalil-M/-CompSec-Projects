@@ -120,13 +120,10 @@ public class ServerLog {
 
 	public void unrecognisedInputFormat(String[] input) {
 		String logEntry = "Input: ";
-
 		for (String entry : input) {
 			logEntry = logEntry.concat(entry);
 		}
-
 		logEntry = logEntry.concat(" was not recognised");
-
 		writeToLog(logEntry);
 	}
 
