@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,9 +26,9 @@ public class ServerLog {
 	public ServerLog() {
 	}
 
-	// TODO change entry to include userid
-
 	private synchronized void writeToLog(String logEntry) {
+		String timestamp = getTimestamp();
+
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		PrintWriter out = null;
@@ -34,7 +36,7 @@ public class ServerLog {
 			fw = new FileWriter(logPath.toString(), true);
 			bw = new BufferedWriter(fw);
 			out = new PrintWriter(bw);
-			out.println(logEntry);
+			out.println(logEntry + "\n" + timestamp);
 			out.close();
 		} catch (IOException e) {
 			System.err.format("IOException: %s%n", e);
@@ -44,7 +46,12 @@ public class ServerLog {
 		}
 	}
 
-	// todo include time stamp
+	private String getTimestamp() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+		return sdf.format(cal.getTime());
+	}
+
 	public void clientConnectsEvent(String subject, String issuer, BigInteger serial, int numConnectedClients) {
 		String logEntry = "Client connected \n";
 		logEntry = logEntry.concat("Client certificate subject DN field: " + subject + "\n");
@@ -55,81 +62,77 @@ public class ServerLog {
 		writeToLog(logEntry);
 	}
 
-	// todo include time stamp
 	public void disconnectEvent(int numConnectedClients) {
 		String logEntry = "Client disconnected \n" + numConnectedClients + " concurrent connection(s)\n";
 		writeToLog(logEntry);
 	}
 
-	// todo include time stamp
-	public void createdRecordEvent(String input) {
-		// TODO Auto-generated method stub
-		writeToLog("logEntry");
-
+	public void createdRecordEvent(String filepath, String username) {
+		String logEntry = "Record " + filepath + ", created by " + username;
+		writeToLog(logEntry);
 	}
 
-	// todo include time stamp
-	public void writeToRecordEvent() {
-		// TODO Auto-generated method stub
-		writeToLog("logEntry");
-
+	public void recordAccessedEvent(boolean permited, String username, String filename) {
+		String logEntry = "User " + username + "attempted to read " + filename;
+		if (permited) {
+			logEntry = logEntry.concat(", action was permitted");
+		} else {
+			logEntry = logEntry.concat(", action was denied");
+		}
+		writeToLog(logEntry);
 	}
 
-	// todo include time stamp
-	public void recordAccessedEvent(boolean b, String username, String string) {
-		// TODO Auto-generated method stub
-		writeToLog("logEntry");
-
+	public void deletedRecordEvent(String username, String name) {
+		String logEntry = "User " + username + " deleted file " + name;
+		writeToLog(logEntry);
 	}
 
-	// todo include time stamp
-	public void deletedRecordEvent(String username, String name, String data) {
-		// TODO Auto-generated method stub
-		writeToLog("logEntry");
-
-	}
-
-	// todo include time stamp
 	public void recordsListedEvent(String username) {
-		// TODO Auto-generated method stub
-		writeToLog("logEntry");
-
+		String logEntry = "User " + username + " listed their available files.";
+		writeToLog(logEntry);
 	}
 
 	public void caughtExceptionEvent(String string, Exception e) {
-		// TODO Auto-generated method stub
+		// TODO to be called when exceptions occur
 		String logEntry = string + e.getMessage();
 		writeToLog(logEntry);
 	}
 
-	public void authenticationAttemptSucceeded(String username) {
-		// TODO Auto-generated method stub
-
+	public void authenticationAttemptSucceeded(String subject, String username) {
+		String logEntry = "Client subject: \n" + subject + "\nauthenticated as user: " + username;
+		writeToLog(logEntry);
 	}
 
-	public void authenticationAttemptFailed(String username) {
-		// TODO Auto-generated method stub
-
+	public void authenticationAttemptFailed(String subject, String username) {
+		String logEntry = "Client subject: \n" + subject + "\nfailed to authenticate as user: " + username;
+		writeToLog(logEntry);
 	}
 
-	public void unknownUsertypeEvent() {
-		// TODO Auto-generated method stub
-
+	public void unknownUsertypeEvent(String username, int usertype) {
+		String logEntry = "An unknown usertype " + "\"" + usertype + "\"" + " for user " + username;
+		writeToLog(logEntry);
 	}
 
-	public void unauthorisedActionAttemptedEvent(String cmdParts, String username) {
-		// TODO Auto-generated method stub
-
+	public void unauthorisedActionAttemptedEvent(String action, String username) {
+		String logEntry = "User " + username + " attempted an unauthorised action " + action;
+		writeToLog(logEntry);
 	}
 
-	public void wrongInputFormat(String[] cmdParts) {
-		// TODO Auto-generated method stub
+	public void unrecognisedInputFormat(String[] input) {
+		String logEntry = "Input: ";
 
+		for (String entry : input) {
+			logEntry = logEntry.concat(entry);
+		}
+
+		logEntry = logEntry.concat(" was not recognised");
+
+		writeToLog(logEntry);
 	}
 
-	public void recordChangedEvent(String username, String msg, String newData) {
-		// TODO Auto-generated method stub
-
+	public void recordChangedEvent(String username, String oldData, String newData, String record) {
+		String logEntry = "User " + username + " changed record " + record + " from " + oldData + " to " + newData;
+		writeToLog(logEntry);
 	}
 
 }

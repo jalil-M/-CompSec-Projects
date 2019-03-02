@@ -55,7 +55,7 @@ public class server implements Runnable {
 				String hash = in.readLine();
 				if (checkPW(hash, userfile, usertype)) {
 
-					log.authenticationAttemptSucceeded(username);
+					log.authenticationAttemptSucceeded(subject, username);
 					out.println("Authenticated!");
 					out.flush();
 
@@ -65,7 +65,7 @@ public class server implements Runnable {
 					out.close();
 					socket.close();
 					numConnectedClients--;
-					log.authenticationAttemptFailed(username);
+					log.authenticationAttemptFailed(subject, username);
 					return;
 				}
 			} else {
@@ -73,7 +73,7 @@ public class server implements Runnable {
 				out.close();
 				socket.close();
 				numConnectedClients--;
-				log.authenticationAttemptFailed(username);
+				log.authenticationAttemptFailed(subject, username);
 				return;
 			}
 

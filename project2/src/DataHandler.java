@@ -24,9 +24,6 @@ import java.util.HashMap;
  * 
  */
 public class DataHandler {
-	private HashMap<String, File> writePerm = new HashMap<String, File>();
-	private HashMap<String, File> readPerm = new HashMap<String, File>();
-
 	private String username = "";
 	private int usertype = -1;
 	private File userfile;
@@ -50,6 +47,8 @@ public class DataHandler {
 		users = new File(root.getParent() + File.separator + "users");
 	}
 
+	// TODO proper exception handling and logging
+
 	public String handleRequest(String clientMsg) throws IOException {
 		switch (usertype) {
 		case PATIENT_USER:
@@ -61,7 +60,7 @@ public class DataHandler {
 		case GA_USER:
 			return gaHandler(clientMsg);
 		default:
-			log.unknownUsertypeEvent();
+			log.unknownUsertypeEvent(username, usertype);
 			return ("unknown usertype");
 		}
 	}
@@ -77,7 +76,7 @@ public class DataHandler {
 		case "read":
 			if (cmdParts.length != 2) {
 				filereader.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: read \"filename\"";
 			}
 			String srcFile = cmdParts[1];
@@ -99,7 +98,7 @@ public class DataHandler {
 
 			if (cmdParts.length != 1) {
 				filereader.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: ls";
 			}
 			String output = "";
@@ -109,7 +108,7 @@ public class DataHandler {
 			}
 
 			filereader.close();
-
+			log.recordsListedEvent(username);
 			return output;
 		case "write":
 			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
@@ -144,7 +143,7 @@ public class DataHandler {
 		case "read":
 			if (cmdParts.length != 2) {
 				fr.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: read \"filename\"";
 			}
 
@@ -188,7 +187,7 @@ public class DataHandler {
 
 			if (cmdParts.length != 1) {
 				fr.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: ls";
 			}
 
@@ -217,7 +216,7 @@ public class DataHandler {
 			cmdParts = clientMsg.split(" ", 3);
 			if (cmdParts.length != 3) {
 				fr.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: write \"file\" \"data\"";
 			}
 
@@ -245,7 +244,7 @@ public class DataHandler {
 
 					pw.close();
 					fr.close();
-					log.recordChangedEvent(username, msg, newData);
+					log.recordChangedEvent(username, msg, newData, record.getName());
 					return "update confirmed";
 				}
 			}
@@ -268,7 +267,6 @@ public class DataHandler {
 	}
 
 	private String doctorHandler(String clientMsg) throws IOException {
-		// TODO Auto-generated method stub
 		String[] cmdParts = clientMsg.split(" ");
 		BufferedReader fr = new BufferedReader(new FileReader(userfile));
 		String[] credentials = fr.readLine().split(";");
@@ -283,7 +281,7 @@ public class DataHandler {
 		case "read":
 			if (cmdParts.length != 2) {
 				fr.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: read \"filename\"";
 			}
 
@@ -326,7 +324,7 @@ public class DataHandler {
 			ArrayList<String> list = new ArrayList<String>();
 
 			if (cmdParts.length != 1) {
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: ls";
 			}
 
@@ -357,7 +355,7 @@ public class DataHandler {
 			cmdParts = clientMsg.split(" ", 3);
 			if (cmdParts.length != 3) {
 				fr.close();
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: write \"file\" \"data\"";
 			}
 
@@ -385,7 +383,7 @@ public class DataHandler {
 
 					pw.close();
 					fr.close();
-					log.recordChangedEvent(username, msg, newData);
+					log.recordChangedEvent(username, msg, newData, record.getName());
 					return "update confirmed";
 				}
 			}
@@ -400,7 +398,7 @@ public class DataHandler {
 			cmdParts = clientMsg.split(" ", 2);
 
 			if (cmdParts.length != 2) {
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: create patient;nurse;doctor;division;data";
 			}
 
@@ -417,7 +415,7 @@ public class DataHandler {
 		switch (cmdParts[0]) {
 		case "read":
 			if (cmdParts.length != 2) {
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: read \"file\"";
 			}
 
@@ -440,7 +438,7 @@ public class DataHandler {
 			ArrayList<String> list = new ArrayList<String>();
 
 			if (cmdParts.length != 1) {
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: ls";
 			}
 
@@ -464,7 +462,7 @@ public class DataHandler {
 			return "Access denied";
 		case "delete":
 			if (cmdParts.length != 2) {
-				log.wrongInputFormat(cmdParts);
+				log.unrecognisedInputFormat(cmdParts);
 				return "wrong format, should be: delete \"file\"";
 			}
 
@@ -497,13 +495,8 @@ public class DataHandler {
 	}
 
 	private void createRecord(String input) throws IOException {
-		log.createdRecordEvent(input);
 		String[] dataInput = input.split(";");
 		String patient = dataInput[0];
-
-		// find next record index for patient
-		// create record
-		// add record to patient, nurse, doctor, div
 
 		String index = findIndex(patient);
 
@@ -529,6 +522,7 @@ public class DataHandler {
 				}
 			}
 		}
+		log.createdRecordEvent(filepath, username);
 	}
 
 	private String findIndex(String patient) {
@@ -562,7 +556,7 @@ public class DataHandler {
 	}
 
 	private void removeRecord(String name, String data) throws IOException {
-		log.deletedRecordEvent(username, name, data);
+		log.deletedRecordEvent(username, name);
 		String[] content = data.split(";");
 		BufferedReader br;
 		PrintWriter pw;
