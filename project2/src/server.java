@@ -89,11 +89,10 @@ public class server implements Runnable {
 			out.flush();
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
-
-				out.println(dh.handleRequest(clientMsg));
+				String output = dh.handleRequest(clientMsg);
+				System.out.println(output);
+				out.println(output);
 				out.flush();
-
-				System.out.println("Handled \"" + clientMsg + "\" from " + username);
 			}
 
 			/*
@@ -118,7 +117,7 @@ public class server implements Runnable {
 			return DataHandler.DOCTOR_USER;
 		case 'n':
 			return DataHandler.NURSE_USER;
-		case 'G':
+		case 'g':
 			return DataHandler.GA_USER;
 		default:
 			return -1;
@@ -201,8 +200,8 @@ public class server implements Runnable {
 				KeyStore ts = KeyStore.getInstance("JKS");
 				char[] password = "password".toCharArray();
 
-				ks.load(new FileInputStream("../TLS2/serverkeystore"), password); // keystore password (storepass)
-				ts.load(new FileInputStream("../TLS2/servertruststore"), password); // truststore password (storepass)
+				ks.load(new FileInputStream("../server/serverkeystore"), password); // keystore password (storepass)
+				ts.load(new FileInputStream("../server/servertruststore"), password); // truststore password (storepass)
 				kmf.init(ks, password); // certificate password (keypass)
 				tmf.init(ts); // possible to use keystore as truststore here
 				ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);

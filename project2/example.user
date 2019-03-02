@@ -1,0 +1,5 @@
+name;patient;hash;record1,record2...
+name;nurse;div#;hash;records
+name;doctor;div#;hash;records
+GA;GA_name;hash
+div;member1,member2...;records

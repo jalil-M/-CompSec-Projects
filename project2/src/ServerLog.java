@@ -62,7 +62,7 @@ public class ServerLog {
 	}
 
 	// todo include time stamp
-	public void createdRecordEvent() {
+	public void createdRecordEvent(String input) {
 		// TODO Auto-generated method stub
 		writeToLog("logEntry");
 
@@ -76,21 +76,21 @@ public class ServerLog {
 	}
 
 	// todo include time stamp
-	public void recordAccessedEvent() {
+	public void recordAccessedEvent(boolean b, String username, String string) {
 		// TODO Auto-generated method stub
 		writeToLog("logEntry");
 
 	}
 
 	// todo include time stamp
-	public void deletedRecordEvent() {
+	public void deletedRecordEvent(String username, String name, String data) {
 		// TODO Auto-generated method stub
 		writeToLog("logEntry");
 
 	}
 
 	// todo include time stamp
-	public void recordsListedEvent(boolean correctInput) {
+	public void recordsListedEvent(String username) {
 		// TODO Auto-generated method stub
 		writeToLog("logEntry");
 
@@ -104,22 +104,32 @@ public class ServerLog {
 
 	public void authenticationAttemptSucceeded(String username) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void authenticationAttemptFailed(String username) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void unknownUsertypeEvent() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void unauthorisedActionAttemptedEvent(String cmdParts, String username) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public void wrongInputFormat(String[] cmdParts) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void recordChangedEvent(String username, String msg, String newData) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

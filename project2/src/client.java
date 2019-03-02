@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.security.NoSuchAlgorithmException;
 import java.security.KeyStoreException;
+import java.security.MessageDigest;
 import java.util.Scanner;
 
 /*
@@ -52,14 +53,18 @@ public class client {
 				KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 				TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 				SSLContext ctx = SSLContext.getInstance("TLS");
-				ks.load(new FileInputStream("../TLS2/p2keystore"), password); // keystore password (storepass)
-				ts.load(new FileInputStream("../TLS2/p2truststore"), password); // truststore password (storepass);
+
+				// TODO search function that finds the path of the keystore and truststore
+				// stored in the USB
+
+				ks.load(new FileInputStream("../USB/keystore"), password); // keystore password (storepass)
+				ts.load(new FileInputStream("../USB/truststore"), password); // truststore password (storepass);
 				kmf.init(ks, password); // user password (keypass)
 				tmf.init(ts); // keystore can be used as truststore here
 				ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 				factory = ctx.getSocketFactory();
 
-				String keystorepath = "../TLS2/p2keystore";
+				String keystorepath = "../USB/keystore";
 				usr = getCAInfo(extractCAInfo(keystorepath, password).replaceAll("\\s+", "")).get(0);
 
 			} catch (Exception e) {
@@ -105,18 +110,18 @@ public class client {
 			String input = in.readLine();
 			System.out.println(input);
 			if (input.equals("Provide password:")) {
-				msg = read.readLine("enter password:");
+				msg = read.readLine();
 				MessageDigest md = MessageDigest.getInstance("SHA-256");
-                md.update(msg.getBytes());
-                byte[] digest = md.digest();
-                StringBuilder sb = new StringBuilder();
-                for (byte b : digest) {
-                    sb.append(String.format("%02x", b & 0xff));
-                }
-                String hash = sb.toString();
+				md.update(msg.getBytes());
+				byte[] digest = md.digest();
+				StringBuilder sb = new StringBuilder();
+				for (byte b : digest) {
+					sb.append(String.format("%02x", b & 0xff));
+				}
+				String hash = sb.toString().toUpperCase();
 				out.println(hash);
 				out.flush();
-				//msg = "1BE00341082E25C4E251CA6713E767F7131A2823B0052CAF9C9B006EC512F6CB";// TODO change from hard-coded
+
 				input = in.readLine();
 				if (passwordExist(input)) {
 
