@@ -920,3 +920,116 @@ User d2 changed record p1-002.records from div1 to Patient has weak toes
 2019.03.02 17:25:45 CET
 Client died: Connection reset
 2019.03.02 17:31:03 CET
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s) 
+
+2019.03.02 21:29:58 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:30:02 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:30:04 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:30:05 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:30:05 CET
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s) 
+
+2019.03.02 21:31:31 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:31:33 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:31:34 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:31:35 CET
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s) 
+
+2019.03.02 21:32:17 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:32:20 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:32:21 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:32:21 CET
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s) 
+
+2019.03.02 21:32:34 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:32:35 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:32:36 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.02 21:32:37 CET
+User d2 listed their available files.
+2019.03.02 21:32:40 CET
+Client died: Connection reset
+2019.03.02 21:32:47 CET
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s) 
+
+2019.03.02 21:37:18 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:37:20 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: d2
+2019.03.02 21:37:21 CET
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.02 21:37:24 CET
+User d2 listed their available files.
+2019.03.02 21:37:27 CET
+User d2attempted to read p1-002.records, action was permitted
+2019.03.02 21:37:35 CET
+User d2 changed record p1-002.records from div1 to Toes fell off.
+2019.03.02 21:38:10 CET
+User d2attempted to read p1-002.records, action was permitted
+2019.03.02 21:38:20 CET
+Client died: Connection reset
+2019.03.02 21:38:29 CET

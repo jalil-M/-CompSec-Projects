@@ -1,8 +1,10 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -21,9 +23,12 @@ import java.util.Calendar;
  */
 public class ServerLog {
 
-	private final Path logPath = Paths.get("..\\logs\\server.log");
+	private static File logPath;
 
-	public ServerLog() {
+	public ServerLog() throws URISyntaxException {
+		File root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+		logPath = new File(root.getParent() + File.separator + "logs" + File.separator + "server.log");
+
 	}
 
 	private synchronized void writeToLog(String logEntry) {
@@ -36,7 +41,7 @@ public class ServerLog {
 			fw = new FileWriter(logPath.toString(), true);
 			bw = new BufferedWriter(fw);
 			out = new PrintWriter(bw);
-			out.println(logEntry + "\n" + timestamp);
+			out.println(logEntry + "\n" + timestamp + "\n");
 			out.close();
 		} catch (IOException e) {
 			System.err.format("IOException: %s%n", e);
@@ -57,7 +62,7 @@ public class ServerLog {
 		logEntry = logEntry.concat("Client certificate subject DN field: " + subject + "\n");
 		logEntry = logEntry.concat("Client certificate issuer DN field: " + issuer + "\n");
 		logEntry = logEntry.concat("Certificate serial number: " + serial + "\n");
-		logEntry = logEntry.concat(numConnectedClients + " concurrent connection(s) \n");
+		logEntry = logEntry.concat(numConnectedClients + " concurrent connection(s)");
 
 		writeToLog(logEntry);
 	}

@@ -9,11 +9,17 @@ import java.math.BigInteger;
 public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
-	private static final ServerLog log = new ServerLog();
+	private static ServerLog log;
+	private static final int max_attempts = 3;
 
 	public server(ServerSocket ss) throws IOException {
 		serverSocket = ss;
 		newListener();
+		try {
+			log = new ServerLog();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
@@ -44,28 +50,38 @@ public class server implements Runnable {
 			File userfile = null;
 			String username = in.readLine();
 			int usertype = getUnitType(username);
+			int attempt = 0;
 
 			if ((userfile = authoriseUser(username)) != null) {
 
 				out.println("Provide password:");
 				out.flush();
 
-				String hash = in.readLine();
-				if (checkPW(hash, userfile, usertype)) {
-
-					log.authenticationAttemptSucceeded(subject, username);
-					out.println("Authenticated!");
-					out.flush();
-
-				} else {
-
-					in.close();
-					out.close();
-					socket.close();
-					numConnectedClients--;
-					log.authenticationAttemptFailed(subject, username);
-					return;
+				while (attempt < max_attempts) {
+					String hash = in.readLine();
+					if (checkPW(hash, userfile, usertype)) {
+						log.authenticationAttemptSucceeded(subject, username);
+						out.println("Authenticated!");
+						out.flush();
+						break;
+					} else {
+						attempt++;
+						if (attempt == max_attempts) {
+							out.println("failed");
+							out.flush();
+							in.close();
+							out.close();
+							socket.close();
+							numConnectedClients--;
+							log.authenticationAttemptFailed(subject, username);
+							return;
+						}
+						out.println("Try again:");
+						out.flush();
+						log.authenticationAttemptFailed(subject, username);
+					}
 				}
+
 			} else {
 				in.close();
 				out.close();
@@ -88,7 +104,6 @@ public class server implements Runnable {
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
 				String output = dh.handleRequest(clientMsg);
-				System.out.println(output);
 				out.println(output);
 				out.flush();
 			}

@@ -97,49 +97,56 @@ public class client {
 
 			String input = in.readLine();
 			if (input.equals("Provide password:")) {
-				String pw = readPassword(input);
-				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				md.update(pw.getBytes());
-				byte[] digest = md.digest();
-				StringBuilder sb = new StringBuilder();
-				for (byte b : digest) {
-					sb.append(String.format("%02x", b & 0xff));
-				}
-				String hash = sb.toString().toUpperCase();
-				out.println(hash);
-				out.flush();
-
-				input = in.readLine();
-				if (passwordExist(input)) {
-
-					/* TODO openAppropriate GUI window */
-
-					int usertype = Integer.parseInt(in.readLine()); // see DataHandler reference
-					System.out.println(in.readLine());
-
-					// for testing
-					for (;;) {
-						System.out.print(">");
-						msg = read.readLine();
-						if (msg.equalsIgnoreCase("quit")) {
-							break;
-						}
-						System.out.print("sending '" + msg + "' to server...");
-						out.println(msg);
-						out.flush();
-						System.out.println("done");
-						System.out.println("received '" + in.readLine() + "' from server\n");
+				while (!passwordExist(input)) {
+					String pw = readPassword(input);
+					MessageDigest md = MessageDigest.getInstance("SHA-256");
+					md.update(pw.getBytes());
+					byte[] digest = md.digest();
+					StringBuilder sb = new StringBuilder();
+					for (byte b : digest) {
+						sb.append(String.format("%02x", b & 0xff));
 					}
-					// for testing //
-
-				} else {
-
-					System.out.println("User not recognized, shutting down connection...");
-					in.close();
-					out.close();
-					read.close();
-					socket.close();
+					String hash = sb.toString().toUpperCase();
+					out.println(hash);
+					out.flush();
+					input = in.readLine();
+					if (input.equals("failed")) {
+						System.out.println("Authentication failed");
+						in.close();
+						out.close();
+						read.close();
+						socket.close();
+						return;
+					}
 				}
+
+				/* TODO openAppropriate GUI window */
+
+				int usertype = Integer.parseInt(in.readLine()); // see DataHandler reference
+				System.out.println(in.readLine());
+
+				// for testing
+				for (;;) {
+					System.out.print(">");
+					msg = read.readLine();
+					if (msg.equalsIgnoreCase("quit")) {
+						break;
+					}
+					System.out.print("sending '" + msg + "' to server...");
+					out.println(msg);
+					out.flush();
+					System.out.println("done");
+					System.out.println("received '" + in.readLine() + "' from server\n");
+				}
+				// for testing //
+
+			} else {
+
+				System.out.println("User not recognized, shutting down connection...");
+				in.close();
+				out.close();
+				read.close();
+				socket.close();
 			}
 
 		} catch (Exception e) {
@@ -238,8 +245,7 @@ class EraserThread implements Runnable {
 	private boolean stop;
 
 	/**
-	 * @param prompt
-	 *            displayed to the user
+	 * @param prompt displayed to the user
 	 */
 	public EraserThread(String prompt) {
 		System.out.print(prompt);
