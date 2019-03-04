@@ -127,6 +127,7 @@ public class client {
 
 				// for testing
 				for (;;) {
+					System.out.print(PersonAccess.userCommands(usertype));
 					System.out.print(">");
 					msg = read.readLine();
 					if (msg.equalsIgnoreCase("quit")) {
