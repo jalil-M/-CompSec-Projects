@@ -1,15 +1,9 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /*
@@ -270,7 +264,8 @@ public class DataHandler {
 		fr = new BufferedReader(new FileReader(divFile));
 		String text = fr.lines().collect(Collectors.joining());
 		text = text.replace("\n", "").replace("\r", "");
-		BufferedReader fr2 = new BufferedReader(text);
+		Reader fr2 = new StringReader(text);
+		fr = new BufferedReader(fr2);
 		String[] divFiles = fr.readLine().split(";")[2].split(",");
 
 		switch (cmdParts[0]) {
@@ -624,7 +619,7 @@ public class DataHandler {
 	}
 
 	private String[] buildPermissions(String lineOfPermissions, BufferedReader fr) throws IOException {
-		/*String[] permissions = lineOfPermissions.split(",");
+		String[] permissions = lineOfPermissions.split(",");
 		System.out.println(lineOfPermissions);
 		while (lineOfPermissions.endsWith("\n")) {
 			lineOfPermissions = fr.readLine();
@@ -633,14 +628,6 @@ public class DataHandler {
 			System.arraycopy(newPerms, 0, permissions, permissions.length, newPerms.length);
 		}
 
-		return permissions;*/
-		
-		FileInputStream fis = new FileInputStream(userfile);
-		byte[] data = new byte[(int) userfile.length()];
-		fis.read(data);
-		fis.close();
-
-		String str = new String(data, "UTF-8");
-		System.out.println(str);
+		return permissions;
 	}
 }

@@ -1033,3 +1033,44 @@ User d2attempted to read p1-002.records, action was permitted
 2019.03.02 21:38:20 CET
 Client died: Connection reset
 2019.03.02 21:38:29 CET
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 20:04:39 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 20:04:45 CET
+
+User d2 listed their available files.
+2019.03.04 20:05:28 CET
+
+User d2 listed their available files.
+2019.03.04 20:05:43 CET
+
+User d2 listed their available files.
+2019.03.04 20:07:45 CET
+
+User d2 listed their available files.
+2019.03.04 20:07:48 CET
+
+User d2 listed their available files.
+2019.03.04 20:07:58 CET
+
+User d2 listed their available files.
+2019.03.04 20:07:59 CET
+
+User d2 listed their available files.
+2019.03.04 20:07:59 CET
+
+User d2 listed their available files.
+2019.03.04 20:13:13 CET
+
+Client disconnected 
+0 concurrent connection(s)
+
+2019.03.04 20:13:27 CET
+
