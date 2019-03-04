@@ -133,11 +133,19 @@ public class client {
 					if (msg.equalsIgnoreCase("quit")) {
 						break;
 					}
-					System.out.print("sending '" + msg + "' to server...");
 					out.println(msg);
 					out.flush();
-					System.out.println("done");
-					System.out.println("received '" + in.readLine() + "' from server\n");
+					String ans = in.readLine();
+					if (msg.equalsIgnoreCase("ls")) {
+						String output = "recieved: \n";
+						String[] files = ans.split(" ");
+						for (String file : files) {
+							output = output.concat(file + "\n");
+						}
+						System.out.println(output);
+					} else {
+						System.out.println("received: \n" + ans);
+					}
 				}
 				// for testing //
 

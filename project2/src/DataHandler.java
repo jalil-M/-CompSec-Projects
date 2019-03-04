@@ -193,7 +193,7 @@ public class DataHandler {
 			 */
 			for (String entry : divFiles) {
 				if (!list.contains(entry)) {
-					list.add(entry);
+					list.add(div + ":" + entry);
 				}
 			}
 
@@ -328,7 +328,7 @@ public class DataHandler {
 			 */
 			for (String entry : divFiles) {
 				if (!list.contains(entry)) {
-					list.add(entry);
+					list.add(div + ":" + entry);
 				}
 			}
 
@@ -483,7 +483,7 @@ public class DataHandler {
 		}
 	}
 
-	private String createRecord(String input, String div2) throws IOException {
+	private String createRecord(String input, String div2) throws IOException, URISyntaxException {
 		String[] dataInput = input.split(";");
 		String patient = dataInput[0];
 		String nurse = dataInput[1];
@@ -492,14 +492,15 @@ public class DataHandler {
 
 		String index = findIndex(patient);
 
-		if (dataInput.length != 3) {
-			return "Wrong format";
+		if (dataInput.length != 3 || !isNurse(nurse) || !isPatient(patient)) {
+			return "Wrong format, try: patient;nurse;data";
 		}
 
 		String filedata = buildFile(dataInput, div);
 
-		File newFile = (Files.write(
-				Paths.get(records.getAbsolutePath() + File.separator + patient + "-" + index + ".records"),
+		String newRecord = patient + "-" + index + ".records";
+
+		File newFile = (Files.write(Paths.get(records.getAbsolutePath() + File.separator + newRecord),
 				filedata.getBytes())).toFile();
 
 		String filepath = newFile.getName();
@@ -518,7 +519,35 @@ public class DataHandler {
 			}
 		}
 		log.createdRecordEvent(filepath, username);
-		return "Created record";
+		return "Created record " + newRecord;
+	}
+
+	private boolean isPatient(String patient) throws URISyntaxException {
+		if (patient.charAt(0) == 'p') {
+			File root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+			File userFolder = new File(root.getParent() + File.separator + "users");
+			for (final File fileEntry : userFolder.listFiles()) {
+				String[] fileParts = fileEntry.getName().split("\\.");
+				if (fileParts.length > 0 && fileParts[0].equals(patient)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean isNurse(String nurse) throws URISyntaxException {
+		if (nurse.charAt(0) == 'n') {
+			File root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+			File userFolder = new File(root.getParent() + File.separator + "users");
+			for (final File fileEntry : userFolder.listFiles()) {
+				String[] fileParts = fileEntry.getName().split("\\.");
+				if (fileParts.length > 0 && fileParts[0].equals(nurse)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private String findIndex(String patient) {
@@ -531,7 +560,7 @@ public class DataHandler {
 			}
 		}
 
-		int highestIndex = 1;
+		int highestIndex = 0;
 		for (String index : list) {
 			int intIndex = Integer.parseInt(index);
 			if (highestIndex < intIndex) {
@@ -620,7 +649,6 @@ public class DataHandler {
 
 	private String[] buildPermissions(String lineOfPermissions, BufferedReader fr) throws IOException {
 		String[] permissions = lineOfPermissions.split(",");
-		System.out.println(lineOfPermissions);
 		while (lineOfPermissions.endsWith("\n")) {
 			lineOfPermissions = fr.readLine();
 			String[] newPerms = lineOfPermissions.split(",");
