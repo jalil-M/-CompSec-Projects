@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -46,7 +48,7 @@ public class DataHandler {
 
 	// TODO proper exception handling and logging
 
-	public String handleRequest(String clientMsg) throws IOException {
+	public String handleRequest(String clientMsg) throws IOException, URISyntaxException {
 		switch (usertype) {
 		case PATIENT_USER:
 			return patientHandler(clientMsg);
@@ -65,8 +67,8 @@ public class DataHandler {
 	private String patientHandler(String clientMsg) throws IOException {
 		String[] cmdParts = clientMsg.split(" ");
 		BufferedReader filereader = new BufferedReader(new FileReader(userfile));
-		String[] credentials = filereader.readLine().split(";");
-		String[] permissions = credentials[3].split(",");
+		String firstLine = filereader.readLine();
+		String[] permissions = buildPermissions(firstLine, filereader);
 		filereader.close();
 
 		switch (cmdParts[0]) {
@@ -128,9 +130,9 @@ public class DataHandler {
 	private String nurseHandler(String clientMsg) throws IOException {
 		String[] cmdParts = clientMsg.split(" ");
 		BufferedReader fr = new BufferedReader(new FileReader(userfile));
-		String[] credentials = fr.readLine().split(";");
-		String[] permissions = credentials[4].split(",");
-		String div = credentials[2];
+		String firstLine = fr.readLine();
+		String div = firstLine.split(";")[2];
+		String[] permissions = buildPermissions(firstLine.split(";")[4], fr);
 		fr.close();
 		File divFile = new File(users.getAbsolutePath() + File.separator + div + ".txt");
 		fr = new BufferedReader(new FileReader(divFile));
@@ -257,15 +259,18 @@ public class DataHandler {
 		}
 	}
 
-	private String doctorHandler(String clientMsg) throws IOException {
+	private String doctorHandler(String clientMsg) throws IOException, URISyntaxException {
 		String[] cmdParts = clientMsg.split(" ");
 		BufferedReader fr = new BufferedReader(new FileReader(userfile));
-		String[] credentials = fr.readLine().split(";");
-		String[] permissions = credentials[4].split(",");
-		String div = credentials[2];
+		String firstLine = fr.readLine();
+		String div = firstLine.split(";")[2];
+		String[] permissions = buildPermissions(firstLine.split(";")[4], fr);
 		fr.close();
 		File divFile = new File(users.getAbsolutePath() + File.separator + div + ".txt");
 		fr = new BufferedReader(new FileReader(divFile));
+		String text = fr.lines().collect(Collectors.joining());
+		text = text.replace("\n", "").replace("\r", "");
+		BufferedReader fr2 = new BufferedReader(text);
 		String[] divFiles = fr.readLine().split(";")[2].split(",");
 
 		switch (cmdParts[0]) {
@@ -330,8 +335,6 @@ public class DataHandler {
 				if (!list.contains(entry)) {
 					list.add(entry);
 				}
-				System.out.println(entry);
-
 			}
 
 			String output = "";
@@ -387,8 +390,14 @@ public class DataHandler {
 				return "wrong format, should be: create patient;nurse;doctor;division;data";
 			}
 
-			createRecord(cmdParts[1]);
-			return "Created record";
+			String patient = cmdParts[1].split(";")[0];
+
+			if (patientExists(patient)) {
+				return createRecord(cmdParts[1], div);
+			} else {
+				return "No such patient";
+			}
+
 		default:
 			return "Unknown cmd";
 		}
@@ -479,13 +488,20 @@ public class DataHandler {
 		}
 	}
 
-	private void createRecord(String input) throws IOException {
+	private String createRecord(String input, String div2) throws IOException {
 		String[] dataInput = input.split(";");
 		String patient = dataInput[0];
+		String nurse = dataInput[1];
+		String doctor = username;
+		String div = div2;
 
 		String index = findIndex(patient);
 
-		String filedata = buildFile(dataInput);
+		if (dataInput.length != 3) {
+			return "Wrong format";
+		}
+
+		String filedata = buildFile(dataInput, div);
 
 		File newFile = (Files.write(
 				Paths.get(records.getAbsolutePath() + File.separator + patient + "-" + index + ".records"),
@@ -500,14 +516,14 @@ public class DataHandler {
 				String name = path.split("\\.")[0];
 
 				pw = new BufferedWriter(new FileWriter(file, true));
-				if (name.equals(patient) || name.equals(dataInput[1]) || name.equals(dataInput[2])
-						|| name.equals(dataInput[3])) {
-					pw.write(";" + filepath);
+				if (name.equals(patient) || name.equals(nurse) || name.equals(div) || name.equals(doctor)) {
+					pw.write("," + filepath);
 					pw.close();
 				}
 			}
 		}
 		log.createdRecordEvent(filepath, username);
+		return "Created record";
 	}
 
 	private String findIndex(String patient) {
@@ -531,11 +547,11 @@ public class DataHandler {
 		return String.format("%03d", highestIndex + 1);
 	}
 
-	private String buildFile(String[] dataInput) {
+	private String buildFile(String[] dataInput, String div) throws ArrayIndexOutOfBoundsException {
 		String nurse = dataInput[1];
-		String doctor = dataInput[2];
-		String division = dataInput[3];
-		String data = dataInput[4];
+		String doctor = username;
+		String division = div;
+		String data = dataInput[2];
 		String output = nurse + ";" + doctor + ";" + division + ";" + data;
 		return output;
 	}
@@ -595,4 +611,36 @@ public class DataHandler {
 
 	}
 
+	private boolean patientExists(String username) throws URISyntaxException {
+		File root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+		File userFolder = new File(root.getParent() + File.separator + "users");
+		for (final File fileEntry : userFolder.listFiles()) {
+			String[] fileParts = fileEntry.getName().split("\\.");
+			if (fileParts.length > 0 && fileParts[0].equals(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private String[] buildPermissions(String lineOfPermissions, BufferedReader fr) throws IOException {
+		/*String[] permissions = lineOfPermissions.split(",");
+		System.out.println(lineOfPermissions);
+		while (lineOfPermissions.endsWith("\n")) {
+			lineOfPermissions = fr.readLine();
+			String[] newPerms = lineOfPermissions.split(",");
+			permissions = Arrays.copyOf(permissions, permissions.length + newPerms.length);
+			System.arraycopy(newPerms, 0, permissions, permissions.length, newPerms.length);
+		}
+
+		return permissions;*/
+		
+		FileInputStream fis = new FileInputStream(userfile);
+		byte[] data = new byte[(int) userfile.length()];
+		fis.read(data);
+		fis.close();
+
+		String str = new String(data, "UTF-8");
+		System.out.println(str);
+	}
 }
