@@ -1074,3 +1074,291 @@ Client disconnected
 
 2019.03.04 20:13:27 CET
 
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 20:45:22 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 20:45:23 CET
+
+Record p2-003.records, created by d2
+2019.03.04 20:45:53 CET
+
+User d2 listed their available files.
+2019.03.04 20:45:56 CET
+
+User d2 listed their available files.
+2019.03.04 20:54:46 CET
+
+User d2 listed their available files.
+2019.03.04 20:54:50 CET
+
+User d2 listed their available files.
+2019.03.04 20:55:27 CET
+
+Record p2-002.records, created by d2
+2019.03.04 20:55:43 CET
+
+User d2 listed their available files.
+2019.03.04 20:55:46 CET
+
+Record p2-003.records, created by d2
+2019.03.04 20:56:12 CET
+
+Record p2-004.records, created by d2
+2019.03.04 20:57:35 CET
+
+User d2 listed their available files.
+2019.03.04 20:57:38 CET
+
+User d2 attempted to read p2-003.records, action was permitted
+2019.03.04 20:57:54 CET
+
+User d2 listed their available files.
+2019.03.04 20:58:53 CET
+
+Client died: Connection reset
+2019.03.04 20:59:05 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+2 concurrent connection(s)
+2019.03.04 21:01:24 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:01:27 CET
+
+User d2 listed their available files.
+2019.03.04 21:01:29 CET
+
+User d2 listed their available files.
+2019.03.04 21:02:50 CET
+
+User d2 listed their available files.
+2019.03.04 21:03:08 CET
+
+Client died: Connection reset
+2019.03.04 21:05:25 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:05:42 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:05:44 CET
+
+User d2 listed their available files.
+2019.03.04 21:05:46 CET
+
+Client died: Connection reset
+2019.03.04 21:06:54 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:07:06 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:07:08 CET
+
+User d2 listed their available files.
+2019.03.04 21:07:10 CET
+
+Client died: Connection reset
+2019.03.04 21:12:13 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:13:08 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:13:10 CET
+
+User d2 listed their available files.
+2019.03.04 21:13:12 CET
+
+Client died: Connection reset
+2019.03.04 21:14:48 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:15:00 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:15:02 CET
+
+User d2 listed their available files.
+2019.03.04 21:15:04 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:19:14 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:19:16 CET
+
+User d2 listed their available files.
+2019.03.04 21:19:17 CET
+
+Record n3-002.records, created by d2
+2019.03.04 21:20:44 CET
+
+Client died: Connection reset
+2019.03.04 21:23:15 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:23:25 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:23:27 CET
+
+Record n3-003.records, created by d2
+2019.03.04 21:23:53 CET
+
+Client died: Connection reset
+2019.03.04 21:26:51 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:27:08 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:27:10 CET
+
+User d2 listed their available files.
+2019.03.04 21:27:11 CET
+
+User d2 listed their available files.
+2019.03.04 21:28:51 CET
+
+User d2 listed their available files.
+2019.03.04 21:28:54 CET
+
+Client died: Connection reset
+2019.03.04 21:30:29 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:30:40 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:30:42 CET
+
+User d2 listed their available files.
+2019.03.04 21:30:44 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:32:22 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:32:25 CET
+
+User d2 listed their available files.
+2019.03.04 21:32:28 CET
+
+Record n3-002.records, created by d2
+2019.03.04 21:33:56 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:34:47 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:34:48 CET
+
+Record n3-003.records, created by d2
+2019.03.04 21:35:02 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.04 21:35:42 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:35:44 CET
+
+Client died: Connection reset
+2019.03.04 21:36:47 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+2 concurrent connection(s)
+2019.03.04 21:37:06 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.04 21:37:07 CET
+
+User d2 listed their available files.
+2019.03.04 21:37:08 CET
+
+Client died: Connection reset
+2019.03.04 21:39:22 CET
+
