@@ -467,7 +467,9 @@ public class DataHandler {
 
 					BufferedReader br = new BufferedReader(new FileReader(file));
 					data = br.readLine();
+					br.close();
 					file.delete();
+					System.out.println(file.delete());
 					br.close();
 					removeRecord(name, data);
 					return name + " deleted";
