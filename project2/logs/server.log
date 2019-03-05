@@ -1896,3 +1896,59 @@ Record p1-006.records, created by d1
 Client died: Connection reset
 2019.03.05 18:37:23 WET
 
+Client connected 
+Client certificate subject DN field: CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721090
+1 concurrent connection(s)
+2019.03.05 22:51:07 WET
+
+Client subject: 
+CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: n2
+2019.03.05 22:51:20 WET
+
+User n2 listed their available files.
+2019.03.05 22:51:22 WET
+
+Client died: Connection reset
+2019.03.05 22:52:27 WET
+
+Client connected 
+Client certificate subject DN field: CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721090
+1 concurrent connection(s)
+2019.03.05 22:52:48 WET
+
+Client subject: 
+CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+failed to authenticate as user: n2
+2019.03.05 22:52:51 WET
+
+Client subject: 
+CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: n2
+2019.03.05 22:52:54 WET
+
+User n2 listed their available files.
+2019.03.05 22:52:55 WET
+
+User n2 attempted to read p2-006.records, action was permitted
+2019.03.05 22:53:58 WET
+
+Input: writep2-006.records was not recognised
+2019.03.05 22:54:13 WET
+
+User n2 attempted an unauthorised action write p2-006.records data
+2019.03.05 22:54:41 WET
+
+User n2 changed record p1-006.records from div1 to test passed.
+2019.03.05 22:55:01 WET
+
+User n2 attempted to read p1-006.records, action was permitted
+2019.03.05 22:55:11 WET
+
+Client died: Connection reset
+2019.03.05 22:55:19 WET
+
