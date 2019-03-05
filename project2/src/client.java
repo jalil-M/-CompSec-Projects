@@ -125,7 +125,6 @@ public class client {
 				int usertype = Integer.parseInt(in.readLine()); // see DataHandler reference
 				System.out.println(in.readLine());
 
-				// for testing
 				for (;;) {
 					System.out.print(PersonAccess.userCommands(usertype));
 					System.out.print(">");
@@ -136,6 +135,9 @@ public class client {
 					out.println(msg);
 					out.flush();
 					String ans = in.readLine();
+					// TODO perhaps we should handle different commands in different ways, as with
+					// ls. write/create with ';' in data should either ignore this char for format
+					// purposes (maybe replace with ',') or give an error message.
 					if (msg.equalsIgnoreCase("ls")) {
 						String output = "recieved: \n";
 						String[] files = ans.split(" ");
@@ -147,7 +149,6 @@ public class client {
 						System.out.println("received: \n" + ans);
 					}
 				}
-				// for testing //
 
 			} else {
 
@@ -254,7 +255,8 @@ class EraserThread implements Runnable {
 	private boolean stop;
 
 	/**
-	 * @param prompt displayed to the user
+	 * @param prompt
+	 *            displayed to the user
 	 */
 	public EraserThread(String prompt) {
 		System.out.print(prompt);
