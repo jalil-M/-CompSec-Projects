@@ -104,15 +104,15 @@ public class DataHandler {
 			log.recordsListedEvent(username);
 			return output;
 		case "write":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			filereader.close();
 			return "Access denied";
 		case "delete":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			filereader.close();
 			return "Access denied";
 		case "create":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			filereader.close();
 			return "Access denied";
 		default:
@@ -236,15 +236,15 @@ public class DataHandler {
 				}
 			}
 
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			fr.close();
 			return "Access denied";
 		case "delete":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			fr.close();
 			return "Access denied";
 		case "create":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			fr.close();
 			return "Access denied";
 		default:
@@ -371,11 +371,11 @@ public class DataHandler {
 				}
 			}
 
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			fr.close();
 			return "Access denied";
 		case "delete":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			return "Access denied";
 		case "create":
 			cmdParts = clientMsg.split(" ", 2);
@@ -447,7 +447,7 @@ public class DataHandler {
 			return output.trim();
 
 		case "write":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			return "Access denied";
 		case "delete":
 			if (cmdParts.length != 2) {
@@ -467,7 +467,9 @@ public class DataHandler {
 
 					BufferedReader br = new BufferedReader(new FileReader(file));
 					data = br.readLine();
+					br.close();
 					file.delete();
+					System.out.println(file.delete());
 					br.close();
 					removeRecord(name, data);
 					return name + " deleted";
@@ -476,7 +478,7 @@ public class DataHandler {
 
 			return "Could not delete " + name;
 		case "create":
-			log.unauthorisedActionAttemptedEvent(cmdParts[0], username);
+			log.unauthorisedActionAttemptedEvent(clientMsg, username);
 			return "Access denied";
 		default:
 			return "Unknown cmd";

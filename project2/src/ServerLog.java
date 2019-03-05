@@ -118,8 +118,8 @@ public class ServerLog {
 		writeToLog(logEntry);
 	}
 
-	public void unauthorisedActionAttemptedEvent(String action, String username) {
-		String logEntry = "User " + username + " attempted an unauthorised action " + action;
+	public void unauthorisedActionAttemptedEvent(String clientInput, String username) {
+		String logEntry = "User " + username + " attempted an unauthorised action " + clientInput;
 		writeToLog(logEntry);
 	}
 
