@@ -62,7 +62,8 @@ public class DataHandler {
 		String[] cmdParts = clientMsg.split(" ");
 		BufferedReader filereader = new BufferedReader(new FileReader(userfile));
 		String firstLine = filereader.readLine();
-		String[] permissions = buildPermissions(firstLine, filereader);
+		String perms = firstLine.split(";")[3];
+		String[] permissions = buildPermissions(perms, filereader);
 		filereader.close();
 
 		switch (cmdParts[0]) {
@@ -97,7 +98,7 @@ public class DataHandler {
 			String output = "";
 
 			for (String entry : permissions) {
-				output.concat(entry + " ");
+				output = output.concat(entry + " ");
 			}
 
 			filereader.close();
