@@ -138,16 +138,29 @@ public class client {
 					// TODO perhaps we should handle different commands in different ways, as with
 					// ls. write/create with ';' in data should either ignore this char for format
 					// purposes (maybe replace with ',') or give an error message.
+					String output = "recieved: \n";
+					String[] inputArray = msg.split(" ");
+
 					if (msg.equalsIgnoreCase("ls")) {
-						String output = "recieved: \n";
 						String[] files = ans.split(" ");
 						for (String file : files) {
 							output = output.concat(file + "\n");
 						}
-						System.out.println(output);
+					} else if (inputArray.length == 2 && inputArray[0].equalsIgnoreCase("read")) {
+						String[] fileData = ans.split(";");
+						String nurse = fileData[0];
+						String doctor = fileData[1];
+						String division = fileData[2];
+						String data = fileData[3];
+						output = output.concat("Nurse: " + nurse + "\n");
+						output = output.concat("Doctor: " + doctor + "\n");
+						output = output.concat("Division: " + division + "\n");
+						output = output.concat("Record: " + data + "\n");
 					} else {
-						System.out.println("received: \n" + ans);
+						output = output.concat(ans);
 					}
+
+					System.out.println(output);
 				}
 
 			} else {
@@ -159,7 +172,9 @@ public class client {
 				socket.close();
 			}
 
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 		}
 	}

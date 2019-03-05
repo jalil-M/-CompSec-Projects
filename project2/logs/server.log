@@ -1389,3 +1389,156 @@ User d2 attempted to read p2-005.records, action was permitted
 Client died: Connection reset
 2019.03.05 14:33:35 CET
 
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 16:28:10 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 16:28:13 CET
+
+Input: read was not recognised
+2019.03.05 16:28:15 CET
+
+User d2 listed their available files.
+2019.03.05 16:28:22 CET
+
+User d2 attempted to read p1-002.records, action was permitted
+2019.03.05 16:28:29 CET
+
+User d2 attempted to read p1-001.records, action was permitted
+2019.03.05 16:29:01 CET
+
+Client died: Connection reset
+2019.03.05 16:32:11 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 16:40:34 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 16:40:35 CET
+
+User d2 listed their available files.
+2019.03.05 16:40:39 CET
+
+User d2 attempted to read p1-002.records, action was permitted
+2019.03.05 16:40:45 CET
+
+Client died: Connection reset
+2019.03.05 16:45:15 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 16:45:38 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 16:45:39 CET
+
+User d2 listed their available files.
+2019.03.05 16:45:41 CET
+
+User d2 attempted to read p1-002.records, action was permitted
+2019.03.05 16:45:48 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 16:48:54 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 16:48:55 CET
+
+User d2 listed their available files.
+2019.03.05 16:48:57 CET
+
+User d2 attempted to read p1-002.records, action was permitted
+2019.03.05 16:49:03 CET
+
+Input: read was not recognised
+2019.03.05 16:49:50 CET
+
+User d2 attempted to read p2-002.records, action was permitted
+2019.03.05 16:50:11 CET
+
+User d2 listed their available files.
+2019.03.05 16:50:16 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 16:53:22 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 16:53:24 CET
+
+User d2 listed their available files.
+2019.03.05 16:53:27 CET
+
+User d2 attempted to read p1-001.records, action was permitted
+2019.03.05 16:53:32 CET
+
+User d2 attempted to read p1-002.records, action was permitted
+2019.03.05 16:53:47 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 17:00:50 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 17:00:52 CET
+
+User d2 attempted to read p1-002.records, action was permitted
+2019.03.05 17:00:58 CET
+
+Client connected 
+Client certificate subject DN field: CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721093
+1 concurrent connection(s)
+2019.03.05 17:03:46 CET
+
+Client subject: 
+CN=d2, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d2
+2019.03.05 17:03:47 CET
+
+User d2 listed their available files.
+2019.03.05 17:03:54 CET
+
+User d2 attempted to read p1-001.records, action was permitted
+2019.03.05 17:03:59 CET
+
+User d2 attempted an unauthorised action write
+2019.03.05 17:04:30 CET
+
+Client died: Connection reset
+2019.03.05 17:04:45 CET
+
