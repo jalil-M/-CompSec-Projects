@@ -1725,3 +1725,174 @@ User p2 listed their available files.
 User p2 attempted to read p2-004.records, action was permitted
 2019.03.05 17:41:17 CET
 
+Client connected 
+Client certificate subject DN field: CN=p1, OU=patient, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721085
+1 concurrent connection(s)
+2019.03.05 17:53:20 WET
+
+Client subject: 
+CN=p1, OU=patient, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: p1
+2019.03.05 17:53:22 WET
+
+User p1 listed their available files.
+2019.03.05 17:53:24 WET
+
+User p1 listed their available files.
+2019.03.05 17:53:28 WET
+
+User p1 attempted to read p1-001.records, action was permitted
+2019.03.05 17:53:56 WET
+
+Client died: Connection reset
+2019.03.05 17:55:02 WET
+
+Client connected 
+Client certificate subject DN field: CN=p1, OU=patient, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721085
+1 concurrent connection(s)
+2019.03.05 18:14:16 WET
+
+Client subject: 
+CN=p1, OU=patient, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: p1
+2019.03.05 18:14:18 WET
+
+User p1 listed their available files.
+2019.03.05 18:14:20 WET
+
+User p1 attempted to read p1-004.records, action was permitted
+2019.03.05 18:14:54 WET
+
+User p1 attempted to read p1-001.records, action was permitted
+2019.03.05 18:16:18 WET
+
+User p1 attempted to read p1.001.records[D[D[D[D[D[D[D[2, action was denied
+2019.03.05 18:17:22 WET
+
+Client died: Connection reset
+2019.03.05 18:17:22 WET
+
+Client connected 
+Client certificate subject DN field: CN=p1, OU=patient, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721085
+2 concurrent connection(s)
+2019.03.05 18:18:04 WET
+
+Client subject: 
+CN=p1, OU=patient, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: p1
+2019.03.05 18:18:05 WET
+
+User p1 attempted to read p1-002.records, action was permitted
+2019.03.05 18:18:11 WET
+
+User p1 attempted to read p1-003.records, action was permitted
+2019.03.05 18:18:44 WET
+
+User p1 attempted to read p1-005.records, action was permitted
+2019.03.05 18:19:16 WET
+
+Client died: Connection reset
+2019.03.05 18:20:19 WET
+
+Client connected 
+Client certificate subject DN field: CN=p2, OU=patient, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721087
+1 concurrent connection(s)
+2019.03.05 18:21:33 WET
+
+Client subject: 
+CN=p2, OU=patient, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: p2
+2019.03.05 18:21:34 WET
+
+User p2 listed their available files.
+2019.03.05 18:21:52 WET
+
+User p2 attempted to read p2-001.records, action was permitted
+2019.03.05 18:22:12 WET
+
+User p2 attempted to read p2-002.records, action was permitted
+2019.03.05 18:22:54 WET
+
+User p2 attempted to read p2-002.records[D[D[D[D[D[D[D[D[D[3, action was denied
+2019.03.05 18:23:36 WET
+
+Client died: Connection reset
+2019.03.05 18:23:36 WET
+
+Client connected 
+Client certificate subject DN field: CN=p2, OU=patient, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721087
+2 concurrent connection(s)
+2019.03.05 18:24:11 WET
+
+Client subject: 
+CN=p2, OU=patient, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: p2
+2019.03.05 18:24:12 WET
+
+User p2 attempted to read p2-004.records, action was permitted
+2019.03.05 18:24:18 WET
+
+User p2 attempted to read p2-005.records, action was permitted
+2019.03.05 18:25:01 WET
+
+Client died: Connection reset
+2019.03.05 18:25:26 WET
+
+Client connected 
+Client certificate subject DN field: CN=p3, OU=patient, O=div2, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721088
+1 concurrent connection(s)
+2019.03.05 18:26:27 WET
+
+Client subject: 
+CN=p3, OU=patient, O=div2, L=lund, ST=skane, C=SE
+authenticated as user: p3
+2019.03.05 18:26:29 WET
+
+User p3 listed their available files.
+2019.03.05 18:27:00 WET
+
+User p3 attempted to read p3-001.records, action was permitted
+2019.03.05 18:27:35 WET
+
+User p3 attempted to read p3-002.records, action was permitted
+2019.03.05 18:28:14 WET
+
+Client died: Connection reset
+2019.03.05 18:30:31 WET
+
+Client connected 
+Client certificate subject DN field: CN=d1, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721092
+1 concurrent connection(s)
+2019.03.05 18:32:14 WET
+
+Client subject: 
+CN=d1, OU=doctor, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: d1
+2019.03.05 18:32:16 WET
+
+User d1 listed their available files.
+2019.03.05 18:32:20 WET
+
+Record p2-006.records, created by d1
+2019.03.05 18:34:26 WET
+
+Record p1-006.records, created by d1
+2019.03.05 18:35:30 WET
+
+Client died: Connection reset
+2019.03.05 18:37:23 WET
+
