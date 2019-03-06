@@ -1952,3 +1952,21 @@ User n2 attempted to read p1-006.records, action was permitted
 Client died: Connection reset
 2019.03.05 22:55:19 WET
 
+Client connected 
+Client certificate subject DN field: CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+Client certificate issuer DN field: EMAILADDRESS=ab6834mo-s@student.lu.se, CN=CA, OU=IT, O=Hospital, L=Lund, ST=Skane, C=SE
+Certificate serial number: 16092019537974721090
+1 concurrent connection(s)
+2019.03.06 11:26:03 WET
+
+Client subject: 
+CN=n2, OU=nurse, O=div1, L=lund, ST=skane, C=SE
+authenticated as user: n2
+2019.03.06 11:26:04 WET
+
+User n2 listed their available files.
+2019.03.06 11:26:15 WET
+
+Client died: Connection reset
+2019.03.06 11:26:53 WET
+
