@@ -148,14 +148,18 @@ public class client {
 						}
 					} else if (inputArray.length == 2 && inputArray[0].equalsIgnoreCase("read")) {
 						String[] fileData = ans.split(";");
-						String nurse = fileData[0];
-						String doctor = fileData[1];
-						String division = fileData[2];
-						String data = fileData[3];
-						output = output.concat("Nurse: " + nurse + "\n");
-						output = output.concat("Doctor: " + doctor + "\n");
-						output = output.concat("Division: " + division + "\n");
-						output = output.concat("Record: " + data + "\n");
+						if (fileData.length == 4) {
+							String nurse = fileData[0];
+							String doctor = fileData[1];
+							String division = fileData[2];
+							String data = fileData[3];
+							output = output.concat("Nurse: " + nurse + "\n");
+							output = output.concat("Doctor: " + doctor + "\n");
+							output = output.concat("Division: " + division + "\n");
+							output = output.concat("Record: " + data + "\n");
+						} else {
+							output = output.concat(ans);
+						}
 					} else {
 						output = output.concat(ans);
 					}
@@ -270,8 +274,7 @@ class EraserThread implements Runnable {
 	private boolean stop;
 
 	/**
-	 * @param prompt
-	 *            displayed to the user
+	 * @param prompt displayed to the user
 	 */
 	public EraserThread(String prompt) {
 		System.out.print(prompt);
