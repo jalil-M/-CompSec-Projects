@@ -41,7 +41,7 @@ public class ServerLog {
 			fw = new FileWriter(logPath.toString(), true);
 			bw = new BufferedWriter(fw);
 			out = new PrintWriter(bw);
-			out.println(logEntry + "\n" + timestamp + "\n");
+			out.println(timestamp + "\n" + logEntry + "\n");
 			out.close();
 		} catch (IOException e) {
 			System.err.format("IOException: %s%n", e);

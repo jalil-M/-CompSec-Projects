@@ -4,8 +4,8 @@ public class PersonAccess {
 
 		String commands = "\n'ls' to list readable records\n" + "'quit' to exit\n\n";
 		String read = "READ records: read patientID-recordID.records\n";
-		String create = "CREATE records: create patientID;nurseID;'insert record data here'\n";
-		String edit = "APPEND to records: write patientID-recordID.records 'insert record data here'\n";
+		String create = "CREATE records: create patientID;nurseID;'insert record data here' \nUsing the ';' symbol will result in format error";
+		String edit = "APPEND to records: write patientID-recordID.records 'insert record data here'\nUsing the ';' symbol will result in format error";
 		String delete = "DELETE records: delete patientID-recordId.records\n";
 		String quit = "'quit' to exit.";
 
